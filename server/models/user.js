@@ -8,29 +8,19 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       validate: {
         notEmpty: {
-          msg : "Name must be filled!"
+          msg: "Name must be filled!"
         }
       }
     },
-    image_url : {
-      type: DataTypes.STRING,
-      validate: {
-        notEmpty: {
-          msg : "Image must be filled!"
-        },
-        isUrl: {
-          msg : "Image must be URL!"
-        }
-    }
-  },
+    
     email: {
       type: DataTypes.STRING,
       validate: {
         notEmpty: {
-          msg : "Email must be filled!"
+          msg: "Email must be filled!"
         },
         isEmail: {
-          msg : "Must be email"
+          msg: "Must be email"
         }
       }
     },
@@ -38,18 +28,29 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       validate: {
         notEmpty: {
-          msg : "Pwd must be filled!"
+          msg: "Pwd must be filled!"
         }
       }
-    }
+    },
+    image_url: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {
+          msg: "Image must be filled!"
+        },
+        isUrl: {
+          msg: "Image must be URL!"
+        }
+      }
+    },
   }, {
-    hooks : {
-      beforeCreate(user){
+    hooks: {
+      beforeCreate(user) {
         user.password = bcrypt.hashSync(user.password, saltRounds)
       }
     }
   });
-  User.associate = function(models) {
+  User.associate = function (models) {
     // associations can be defined here
     User.hasMany(models.Tweet)
     User.hasMany(models.Like)

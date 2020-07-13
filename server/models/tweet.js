@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     tags: {
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY(DataTypes.STRING),
     },
     media: {
       type: DataTypes.STRING,

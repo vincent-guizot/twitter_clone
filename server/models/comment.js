@@ -1,6 +1,8 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Comment = sequelize.define('Comment', {
+    TweetId: DataTypes.INTEGER,
+    UserId: DataTypes.INTEGER,
     reply: {
       type: DataTypes.STRING,
       validate : {
@@ -9,8 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    UserId: DataTypes.INTEGER,
-    TweetId: DataTypes.INTEGER
+    
   }, {});
   Comment.associate = function(models) {
     // associations can be defined here

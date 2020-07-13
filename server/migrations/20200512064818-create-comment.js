@@ -9,13 +9,13 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       TweetId: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       UserId: {
         type : Sequelize.INTEGER  
       },
       reply: {
-        type : Sequelize.INTEGER  
+        type : Sequelize.STRING  
       },
       createdAt: {
         allowNull: false,

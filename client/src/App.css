@@ -1,0 +1,49 @@
+.navbar-component {
+  background-color: #ffffff;
+}
+
+/* VH = Viewport Height */
+/* VW = Viewport Width */
+.maincontent-first {
+  background-color: #f0f0f0;
+  height: calc(100vh - 56px);
+  padding: 1rem;
+}
+.maincontent-component {
+  max-height: calc(100vh - 104px );
+  margin-right: 1rem;
+}
+.search-bar {
+  border-bottom: 1px solid #ccc;
+}
+.tweets-list {
+  height: calc(100vh - 191px );
+  
+  overflow-y: scroll;
+}
+/* width */
+.tweets-list::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.tweets-list::-webkit-scrollbar-track {
+  /* box-shadow: inset 0 0 5px grey;  */
+  border-radius: .5rem;
+}
+ 
+/* Handle */
+.tweets-list::-webkit-scrollbar-thumb {
+  background: #f0f0f0; 
+  border-radius: .5rem;
+}
+
+/* Handle on hover */
+.tweets-list::-webkit-scrollbar-thumb:hover {
+  background: #b30000; 
+}
+
+.follow-list, .tag-list{
+  height: calc((100vh - 56px -2rem)/2);
+  
+}
