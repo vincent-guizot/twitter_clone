@@ -1,0 +1,39 @@
+BACKEND
+Posts : {
+    userId,
+    tweet,
+    tags : [],
+    createdAt,
+    updatedAt,
+}
+posts belongsTo user
+posts hasMany likes
+posts hasMany Comments
+
+Likes : {
+    userId,
+    postId,
+    createdAt,
+    updatedAt,
+}
+likes belongsTo post
+
+Comments : {
+    userId,
+    postId,
+    reply,
+    createdAt,
+    updatedAt,
+}
+comments belongsTo post
+
+Users : {
+    email,
+    username,
+    password
+    createdAt,
+    updatedAt,
+}
+user hasMany posts
+
+Lorem ipsum adalah dummy text #dummytext
