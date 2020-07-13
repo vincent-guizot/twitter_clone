@@ -19,6 +19,11 @@ class TweetController {
                 Like,
                 Comment
             ],
+            attributes: {
+                exclude: 
+                    ['User.password']
+                
+            }
         })
         .then(Tweet => {
             res.status(200).json(Tweet)
