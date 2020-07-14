@@ -1,3 +1,7 @@
+body{
+  font-family: "Manrope", sans-serif;
+}
+
 .navbar-component {
   background-color: #ffffff;
 }
