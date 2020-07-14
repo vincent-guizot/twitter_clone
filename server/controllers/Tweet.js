@@ -35,7 +35,7 @@ class TweetController {
 
         Tweet.create({
             tweet: form.tweet,
-            tags: form.tags,
+            // tags: form.tags,
             media: form.media,
             UserId: userId
         })
@@ -51,7 +51,7 @@ class TweetController {
         let form = req.body
         Tweet.update({
             tweet: form.tweet,
-            tags: form.tags,
+            // tags: form.tags,
             media: form.media,
         }, {
             where: {
@@ -81,28 +81,28 @@ class TweetController {
                 id: tweetId
             }
         })
-            .then(Tweet => {
-                if (!Tweet) {
-                    next({
-                        name: "Not_Found"
-                    })
-                } else {
-                    return Like.destroy({
-                        where : {
-                            TweetId : tweetId,
-                            UserId
-                        }
-                    })
-                }
-            })
-            .then(tweet=>{
-                return Comment.destroy({
-                    where : {
-                        TweetId : tweetId,
-                        UserId
-                    }
-                })
-            })
+            // .then(Tweet => {
+            //     if (!Tweet) {
+            //         next({
+            //             name: "Not_Found"
+            //         })
+            //     } else {
+            //         return Like.destroy({
+            //             where : {
+            //                 TweetId : tweetId,
+            //                 UserId
+            //             }
+            //         })
+            //     }
+            // })
+            // .then(tweet=>{
+            //     return Comment.destroy({
+            //         where : {
+            //             TweetId : tweetId,
+            //             UserId
+            //         }
+            //     })
+            // })
             .then(tweet=>{
                     res.status(200).json(tweet)
 

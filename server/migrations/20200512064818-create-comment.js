@@ -9,13 +9,20 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       TweetId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName : 'Tweets'
+          },
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade'
       },
       UserId: {
-        type : Sequelize.INTEGER  
+        type: Sequelize.INTEGER
       },
       reply: {
-        type : Sequelize.STRING  
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

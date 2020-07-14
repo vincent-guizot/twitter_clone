@@ -3,7 +3,6 @@ const TweetController = require('../controllers/Tweet')
 
 const { authentication, authorization } = require('../middlewares/auth')
 
-
 // Tweet
 Route.get('/all',  TweetController.allList)
 // Route.get('/', authentication ,TweetController.list)

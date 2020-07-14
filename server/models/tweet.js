@@ -23,7 +23,24 @@ module.exports = (sequelize, DataTypes) => {
     UserId: {
       type: DataTypes.INTEGER,
     }
-  }, {});
+  }, {
+    hooks: {
+      beforeCreate(data) {
+        
+        // let [tweetContent, ...tweetTags] = data.tweet.split('#')
+        // data.tags = tweetTags
+        // console.log(tweetTags)
+
+        data.tags = []
+        data.tweet.split(' ').forEach(el=>{
+          if(el[0]==="#"){
+            data.tags.push(el.split("#")[1])
+          }
+        })
+        console.log(data.tags)
+      }
+    }
+  });
   Tweet.associate = function (models) {
     // associations can be defined here
     Tweet.belongsTo(models.User)
