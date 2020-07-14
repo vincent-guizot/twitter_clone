@@ -21,3 +21,26 @@ export const getTweets = () => {
         })
     }
 }
+
+export const addTweet = (tweet) => {
+    console.log('tweet: ', tweet);
+    return (dispatch) => {
+        axios({
+            method: 'post',
+            url: URL ,
+            headers: {
+                access_token: localStorage.getItem('access_token')
+            },
+            data: tweet,
+        })
+        .then((result) => {
+            dispatch(getTweets())
+            // dispatch({
+            //     type: 'ADD_TWEET',
+            //     payload: result.data
+            // })
+        }).catch((err) => {
+            console.log(err)
+        });
+    }    
+}
