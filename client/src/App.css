@@ -47,3 +47,9 @@
   height: calc((100vh - 56px -2rem)/2);
   
 }
+.user-name{
+  margin-bottom: 0.25rem;
+}
+.tweets-list .row {
+  margin-bottom: 1rem;
+}

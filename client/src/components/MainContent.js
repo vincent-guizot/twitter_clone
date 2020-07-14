@@ -1,18 +1,18 @@
-import React, {useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import TweetBox from './TweetBox'
 
 
-import {getTweets} from '../store/actions/tweetAction'
+import { getTweets } from '../store/actions/tweetAction'
 
 export default function MainContent() {
     const dispatch = useDispatch()
-    const {tweets} = useSelector(state => state.tweetReducer)
+    const { tweets } = useSelector(state => state.tweetReducer)
 
     useEffect(() => {
         dispatch(getTweets())
 
-    }, [getTweets])
+    }, [dispatch])
 
     return (
         <div className="maincontent-first container-fluid">
@@ -31,8 +31,12 @@ export default function MainContent() {
                             </div>
                         </div>
                         <div className="tweets-list p-3">
-                            {JSON.stringify(tweets)}
-                            
+                            {tweets.map(el => {
+                                return (
+                                    <TweetBox tweet={el}></TweetBox>
+                                )
+                            })}
+
                         </div>
                     </div>
                     {/* <div className="col-auto"></div> */}
