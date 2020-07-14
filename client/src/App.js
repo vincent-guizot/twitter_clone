@@ -6,10 +6,11 @@ import {
   Route,
 } from "react-router-dom";
 import routes from './routes'
-
+import { Provider } from 'react-redux'
+import store from './store'
 
 function App() {
-  
+
   function RouteWithSubRoutes(route) {
     return (
       <Route
@@ -23,15 +24,17 @@ function App() {
   }
 
   return (
-    <Router>
-      <div className="App">
-      <Switch>
-          {routes.map((route, i) => (
-            <RouteWithSubRoutes key={i} {...route} />
-          ))}
-        </Switch>
-      </div>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <div className="App">
+          <Switch>
+            {routes.map((route, i) => (
+              <RouteWithSubRoutes key={i} {...route} />
+            ))}
+          </Switch>
+        </div>
+      </Router>
+    </Provider>
   );
 }
 

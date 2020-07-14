@@ -1,7 +1,19 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import { useDispatch, useSelector } from "react-redux";
+import TweetBox from './TweetBox'
 
+
+import {getTweets} from '../store/actions/tweetAction'
 
 export default function MainContent() {
+    const dispatch = useDispatch()
+    const {tweets} = useSelector(state => state.tweetReducer)
+
+    useEffect(() => {
+        dispatch(getTweets())
+
+    }, [getTweets])
+
     return (
         <div className="maincontent-first container-fluid">
             <div className="container p-0">
@@ -19,27 +31,7 @@ export default function MainContent() {
                             </div>
                         </div>
                         <div className="tweets-list p-3">
-                                <div className="row">
-                                    <div className="col-1">
-                                        <img style={{ "width": "50px", "height": "50px" }} className="rounded-circle" src={"https://img.okeinfo.net/content/2018/11/21/194/1980688/sederet-tampilan-mewah-jennie-blackpink-total-seharga-rp500-an-juta-kn4RSsRoWh.jpg"} alt="" />
-                                    </div>
-                                    <div className="col-11">
-                                        <div className="float-left">
-                                            <p>Jennie <span className="text-muted">jennie@mail.com</span></p>
-                                            <p className="font-weight-light">Belajar bersama mr Ncoes ea</p>
-                                            <div className="comment-bar">
-                                                <button className="btn btn-sm btn-outline-primary mr-3">Like</button>
-                                                <button className="btn btn-sm btn-info">Comment</button>
-                                            </div>
-                                        </div>
-                                        <div className="float-right">
-                                            <button type="button" class="close" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                </div>
+                            {JSON.stringify(tweets)}
                             
                         </div>
                     </div>
