@@ -11,7 +11,11 @@ export default function MainContent() {
     useEffect(() => {
         dispatch(getTweets())
     }, [dispatch])
-
+    
+    useEffect(() => {
+        setTweet(null)
+    }, [tweets])
+    
     const [tweet, setTweet] = useState("")
     const [media, setMedia] = useState('https://via.placeholder.com/300/09f/fff.png')
 
@@ -20,7 +24,7 @@ export default function MainContent() {
            tweet,
            media
        }))
-        setTweet(null)
+        setTweet("")
     }
 
     return (
@@ -29,20 +33,20 @@ export default function MainContent() {
                 <div className="row mt-3">
                     <div className="maincontent-component col-8 bg-white p-0">
                         <div className="search-bar p-3">
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text mr-3" id="addon-wrapping">#</span>
+                            <div className="input-group mb-3">
+                                <div className="input-group-prepend">
+                                    <span className="input-group-text mr-3" id="addon-wrapping">#</span>
                                 </div>
-                                <input onChange={(e) => setTweet(e.target.value)} type="text" class="form-control" placeholder="Share your thought.." />
-                                <div class="input-group-append">
-                                    <button onClick={onHandlePost} class="btn btn-outline-secondary" type="button" id="button-addon2">Post Tweet</button>
+                                <input onChange={(e) => setTweet(e.target.value)} type="text" className="form-control" placeholder="Share your thought.." />
+                                <div className="input-group-append">
+                                    <button onClick={onHandlePost} className="btn btn-info" type="button" id="button-addon2">Post Tweet</button>
                                 </div>
                             </div>
                         </div>
                         <div className="tweets-list p-3">
                             {tweets.map(el => {
                                 return (
-                                    <TweetBox tweet={el}></TweetBox>
+                                    <TweetBox tweet={el} key={el.id}></TweetBox>
                                 )
                             })}
 

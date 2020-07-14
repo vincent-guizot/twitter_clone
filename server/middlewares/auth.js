@@ -3,7 +3,6 @@ const { Tweet } = require('../models')
 const jwt = require('jsonwebtoken')
 const secretKey = 'bebas'
 
-
 //Middleware functions
 const authentication = (req, res, next) => {
     console.log("Authentication checked!")

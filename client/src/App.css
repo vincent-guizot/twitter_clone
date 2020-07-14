@@ -48,12 +48,29 @@ body{
 }
 
 .follow-list, .tag-list{
-  height: calc((100vh - 56px -2rem)/2);
+  height: calc(84vh/2);
   
 }
 .user-name{
   margin-bottom: 0.25rem;
+  font-weight: bold;
 }
 .tweets-list .row {
-  margin-bottom: 1rem;
+  margin-bottom: 1.35rem;
+  padding-bottom: 1.35rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.edit-icon{
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: .35rem;
+  color: #212529;
+}
+.edit-icon:hover {
+  color: #17a2b8;
+}
+.comment-bar span i{
+  font-size: 1.25rem;
+  cursor: pointer;
 }
