@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import TweetBox from './TweetBox'
 
-
-import { getTweets } from '../store/actions/tweetAction'
+import { getTweets, addTweet } from '../store/actions/tweetAction'
 
 export default function MainContent() {
     const dispatch = useDispatch()
@@ -11,8 +10,18 @@ export default function MainContent() {
 
     useEffect(() => {
         dispatch(getTweets())
-
     }, [dispatch])
+
+    const [tweet, setTweet] = useState("")
+    const [media, setMedia] = useState('https://via.placeholder.com/300/09f/fff.png')
+
+    const onHandlePost = () => {
+       dispatch(addTweet({
+           tweet,
+           media
+       }))
+        setTweet('')
+    }
 
     return (
         <div className="maincontent-first container-fluid">
@@ -24,9 +33,9 @@ export default function MainContent() {
                                 <div class="input-group-prepend">
                                     <span class="input-group-text mr-3" id="addon-wrapping">@</span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2" />
+                                <input onChange={(e) => setTweet(e.target.value)} type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" />
                                 <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+                                    <button onClick={onHandlePost} class="btn btn-outline-secondary" type="button" id="button-addon2">Post Tweet</button>
                                 </div>
                             </div>
                         </div>

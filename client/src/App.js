@@ -9,6 +9,10 @@ import routes from './routes'
 import { Provider } from 'react-redux'
 import store from './store'
 
+localStorage.setItem(
+  'access_token',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTk0NzIxNDU1fQ.2RxFl-OD3CplDCKJQgOCSNyaySc8GlBREBztGT3O_Ss')
+
 function App() {
 
   function RouteWithSubRoutes(route) {
