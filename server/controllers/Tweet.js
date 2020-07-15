@@ -19,7 +19,7 @@ class TweetController {
                 { model: Like, attributes: ['id','TweetId', 'UserId'] },
                 { model: Comment, attributes: ['id','TweetId', 'UserId', 'reply'] },
             ],
-            order: [["createdAt",'DESC']]
+            order: [["updatedAt",'DESC']]
         })
             .then(Tweet => {
                 res.status(200).json(Tweet)

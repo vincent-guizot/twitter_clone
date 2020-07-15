@@ -22,7 +22,7 @@ class UserController {
         })
         .then(user => {
             const access_token = tokenGenerator(user)
-            res.status(200).json({access_token})
+            res.status(200).json({access_token, UserId:user.id})
         })
         .catch(err => {
             next(errMessage)
