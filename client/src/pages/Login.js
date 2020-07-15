@@ -1,11 +1,23 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { login, register } from '../store/actions/userAction'
-import { Link, useHistory } from 'react-router-dom'
+import { Link, Redirect, useHistory } from 'react-router-dom'
 
 function Login() {
     const dispatch = useDispatch()
+    const history = useHistory()
+    const { user } = useSelector(state => state.userReducer)
+    console.log(user)
+    useEffect(() => {
+        if (localStorage.getItem("access_token")) {
+            history.push('/home')
+            // <Redirect to="/home" />
+            // return () => {
+            
+            // }
+        }
+    }, [user])
 
     const [email, setEmail] = useState("")
     const [pwd, setPwd] = useState("")
@@ -26,10 +38,16 @@ function Login() {
             email,
             password: pwd,
             username,
-            image_url : image
+            image_url: image
         }))
     }
-    
+
+    // if (localStorage.getItem("access_token")) {
+    //     return (
+    //         <Redirect to="/home" />
+    //     )
+    // }
+
     {
         // page login
         if (page === "login") {
@@ -54,9 +72,9 @@ function Login() {
                                             </div>
                                             <div className="form-group form-check">
                                                 <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                                                <label className="form-check-label" for="exampleCheck1">Remember account</label>
+                                                <label className="form-check-label" >Remember account</label>
                                             </div>
-                                            <Link to="/home" onClick={onHandleLogin} type="button" className="btn btn-block btn-primary">LOGIN</Link>
+                                            <button onClick={onHandleLogin} type="button" className="btn btn-block btn-primary">LOGIN</button>
                                         </form>
                                         <button onClick={() => setPage('register')} >Register Now</button>
                                     </div>
@@ -77,7 +95,7 @@ function Login() {
                                 <div className="col-5">
                                     <div className="card p-4">
                                         <form>
-                                        <div className="form-group">
+                                            <div className="form-group">
                                                 <label >Username</label>
                                                 <input type="text" className="form-control"
                                                     onChange={(e) => setUsername(e.target.value)} />
@@ -106,7 +124,7 @@ function Login() {
                                                 <input type="checkbox" className="form-check-input" id="exampleCheck1" />
                                                 <label className="form-check-label" for="exampleCheck1">Remember account</label>
                                             </div>
-                                            <Link to="/register" onClick={onHandleRegister} type="button" className="btn btn-block btn-primary">REGISTER</Link>
+                                            <button onClick={onHandleRegister} type="button" className="btn btn-block btn-primary">REGISTER</button>
                                         </form>
                                         <button onClick={() => setPage('login')} >Have account, Login Now</button>
                                     </div>

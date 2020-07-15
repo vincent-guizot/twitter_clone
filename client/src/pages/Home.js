@@ -4,9 +4,6 @@ import Navbar from '../components/Navbar'
 import MainContent from '../components/MainContent'
 
 function Home() {
-    const access_token = localStorage.getItem('access_token')
-    const history = useHistory()
-    
     if(!localStorage.getItem("access_token")) {
         return (
             <Redirect to="/login"/>

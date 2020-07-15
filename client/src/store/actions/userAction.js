@@ -29,6 +29,7 @@ export const register = (userRegister) => {
             url: URL + 'register',
             data : userRegister
         }).then((result) => {
+            
             localStorage.setItem('access_token', result.data.access_token)
             localStorage.setItem('UserId', result.data.UserId)
             dispatch({
