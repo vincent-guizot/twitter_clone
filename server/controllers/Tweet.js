@@ -15,11 +15,11 @@ class TweetController {
         //Menerima dr middleware
         Tweet.findAll({
             include: [
-                { model: User, attributes: { exclude: ['password','createdAt','updatedAt'] } },
-                { model: Like, attributes: ['id','TweetId', 'UserId'] },
-                { model: Comment, attributes: ['id','TweetId', 'UserId', 'reply'] },
+                { model: User, attributes: { exclude: ['password', 'createdAt', 'updatedAt'] } },
+                { model: Like, attributes: ['id', 'TweetId', 'UserId'] },
+                { model: Comment, attributes: ['id', 'TweetId', 'UserId', 'reply'] },
             ],
-            order: [["updatedAt",'DESC']]
+            order: [["updatedAt", 'DESC']]
         })
             .then(Tweet => {
                 res.status(200).json(Tweet)
@@ -53,7 +53,8 @@ class TweetController {
         }, {
             where: {
                 id: tweetId
-            }
+            },
+            individualHooks: true
         })
             .then(tweet => {
                 if (!tweet) {
@@ -66,9 +67,9 @@ class TweetController {
                             id: tweetId
                         },
                         include: [
-                            { model: User, attributes: { exclude: ['password','createdAt','updatedAt'] } },
-                            { model: Like, attributes: ['id','TweetId', 'UserId'] },
-                            { model: Comment, attributes: ['id','TweetId', 'UserId', 'reply'] },
+                            { model: User, attributes: { exclude: ['password', 'createdAt', 'updatedAt'] } },
+                            { model: Like, attributes: ['id', 'TweetId', 'UserId'] },
+                            { model: Comment, attributes: ['id', 'TweetId', 'UserId', 'reply'] },
                         ],
                     })
                 }
@@ -111,8 +112,8 @@ class TweetController {
             //         }
             //     })
             // })
-            .then(tweet=>{
-                    res.status(200).json(tweet)
+            .then(tweet => {
+                res.status(200).json(tweet)
 
             })
             .catch(err => {
@@ -131,10 +132,7 @@ class TweetController {
             }
         })
             .then(Like => {
-                console.log(Like)
-                res.status(200).json({
-                    statusLike: Like[1]
-                })
+                res.status(200).json(Like[0])
             })
             .catch(err => {
                 next(err)
@@ -144,6 +142,7 @@ class TweetController {
     static unlikeTweet(req, res, next) {
         let tweetId = req.body.TweetId
         let userId = req.userData.id
+        let likeId = null
 
         Like.findOne({
             where: {
@@ -152,14 +151,15 @@ class TweetController {
             }
         })
             .then(like => {
+                likeId = like
                 return Like.destroy({
                     where: {
                         id: like.id
                     }
                 })
             })
-            .then(like => {
-                res.status(200).json(like)
+            .then(result => {
+                res.status(200).json(likeId)
             })
             .catch(err => {
                 next(err)
@@ -216,7 +216,7 @@ class TweetController {
         Comment.findOne({
             where: {
                 UserId,
-                id 
+                id
             }
         })
             .then(comment => {

@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch } from "react-redux";
 
 
-import { deleteTweet } from '../store/actions/tweetAction'
+import { deleteTweet, likeTweet, unlikeTweet } from '../store/actions/tweetAction'
 
 function TweetBox(props) {
     const { tweet } = props
@@ -19,12 +19,14 @@ function TweetBox(props) {
         // console.log(userid)
         tweet.Likes.forEach(el => {
             if (el.UserId === Number(userid)) {
-                console.log("unlike", el)
                 checkLike = !checkLike
+                console.log("unlike", el)
+                dispatch(likeTweet(tweet.id))
             }
         })
         if (checkLike) {
             console.log("like")
+            dispatch(unlikeTweet(tweet.id))
         }
     }
 
