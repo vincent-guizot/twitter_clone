@@ -104,7 +104,7 @@ function Login() {
                                             <div className="form-group">
                                                 <label >Image</label>
                                                 <input type="file" className="form-control"
-                                                    onChange={(e) => setImage(e.target.value)} />
+                                                    onChange={(e) => setImage(e.target.files[0])} />
 
                                                 <small id="emailHelp" className="form-text text-muted">Must link format!!</small>
                                             </div>
