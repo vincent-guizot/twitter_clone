@@ -2,6 +2,10 @@ import React from 'react'
 import { Link } from "react-router-dom";
 
 function Navbar() {
+    const onHandleLogout= () => {
+        localStorage.clear()
+    }
+
     return (
         <div className="navbar-component container-fluid">
             <div className="container">
@@ -14,6 +18,9 @@ function Navbar() {
                         <div className="navbar-nav">
 
                         </div>
+                    </div>
+                    <div className="ml-auto">
+                        <Link to="/login" onClick={()=> onHandleLogout()} className="btn btn-outline-info">LOGOUT</Link>
                     </div>
                 </nav>
             </div>

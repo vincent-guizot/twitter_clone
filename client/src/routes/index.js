@@ -6,12 +6,14 @@ const routes = [
     {
         path: "/home",
         component: Home,
-        exact : true
+        exact : true,
+        public : false
     },
     {
         path: "/login",
         component: Login,
-        exact : true
+        exact : true,
+        public : true
     },
 ]
 

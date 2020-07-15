@@ -53,11 +53,11 @@ export default function MainContent() {
                         </div>
                     </div>
                     {/* <div className="col-auto"></div> */}
-                    <div className="col bg-dark p-0">
-                        <div className="follow-list bg-primary">
+                    <div className="col p-0">
+                        <div className="follow-list  mb-3">
 
                         </div>
-                        <div className="tag-list bg-warning">
+                        <div className="tag-list -">
 
                         </div>
                     </div>

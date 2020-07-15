@@ -48,6 +48,8 @@ body{
 
 .follow-list, .tag-list{
   height: calc(84vh/2);
+  background: #fff;
+  border-radius: 0.35rem;
   
 }
 .user-name{
