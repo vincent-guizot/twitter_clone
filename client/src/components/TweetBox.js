@@ -61,8 +61,8 @@ function TweetBox(props) {
                             <span className="sr-only">Toggle Dropdown</span>
                         </button>
                         <div className="dropdown-menu">
-                            <a onClick={() => onDeletePost(tweet.id)} className="dropdown-item" href="true">Delete</a>
-                            <a className="dropdown-item" href="true">Edit</a>
+                            <button onClick={() => onDeletePost(tweet.id)} className="dropdown-item" href="true">Delete</button>
+                            <button className="dropdown-item" href="true">Edit</button>
                         </div>
                     </div>
                 </div>
