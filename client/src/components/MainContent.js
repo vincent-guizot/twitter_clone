@@ -20,7 +20,7 @@ export default function MainContent() {
            tweet,
            media
        }))
-        setTweet('')
+        setTweet(null)
     }
 
     return (
@@ -33,7 +33,7 @@ export default function MainContent() {
                                 <div class="input-group-prepend">
                                     <span class="input-group-text mr-3" id="addon-wrapping">#</span>
                                 </div>
-                                <input onChange={(e) => setTweet(e.target.value)} type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" />
+                                <input onChange={(e) => setTweet(e.target.value)} type="text" class="form-control" placeholder="Share your thought.." />
                                 <div class="input-group-append">
                                     <button onClick={onHandlePost} class="btn btn-outline-secondary" type="button" id="button-addon2">Post Tweet</button>
                                 </div>

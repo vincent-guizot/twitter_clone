@@ -31,11 +31,9 @@ class TweetController {
     static add(req, res, next) {
         let form = req.body
         let userId = req.userData.id
-        // console.log(typeof new Array(form.tags))
 
         Tweet.create({
             tweet: form.tweet,
-            // tags: form.tags,
             media: form.media,
             UserId: userId
         })
@@ -47,26 +45,36 @@ class TweetController {
             })
     }
     static update(req, res, next) {
-        let getId = req.params.id
+        let tweetId = req.params.id
         let form = req.body
         Tweet.update({
             tweet: form.tweet,
-            // tags: form.tags,
             media: form.media,
         }, {
             where: {
-                id: getId
+                id: tweetId
             }
         })
-            .then(Tweet => {
-                if (!Tweet) {
+            .then(tweet => {
+                if (!tweet) {
                     next({
                         name: "Not_Found"
                     })
                 } else {
-                    res.status(200).json(Tweet)
+                    return Tweet.findOne({
+                        where: {
+                            id: tweetId
+                        },
+                        include: [
+                            { model: User, attributes: { exclude: ['password','createdAt','updatedAt'] } },
+                            { model: Like, attributes: ['id','TweetId', 'UserId'] },
+                            { model: Comment, attributes: ['id','TweetId', 'UserId', 'reply'] },
+                        ],
+                    })
                 }
-                res.status(201).json(Tweet)
+            })
+            .then(updated => {
+                res.status(201).json(updated)
             })
             .catch(err => {
                 next(err)

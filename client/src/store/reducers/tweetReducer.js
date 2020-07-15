@@ -21,14 +21,12 @@ export const tweetReducer = (state = initialStore, { type, payload }) => {
             // })
 
             // return state;
-        // case 'DELETE_TWEET':
-        //     return {
-        //         ...state, 
-        //         tweets: state.tweets.filter(el => {
-        //             el.id !== payload.id
-
-        //         })
-        //     };
+        case 'DELETE_TWEET':
+            return {
+                ...state, 
+                tweets: state.tweets.filter(el => el.id !== payload.id)
+                    
+            };
         default:
             return state;
     }

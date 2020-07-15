@@ -1,7 +1,17 @@
 import React from 'react'
+import { useDispatch } from "react-redux";
+
+
+import { deleteTweet  } from '../store/actions/tweetAction'
 
 function TweetBox(props) {
-    const { tweet } = props
+    const {tweet} = props
+    const dispatch = useDispatch()
+
+    const onDeletePost = (id) => {
+        dispatch(deleteTweet(id))
+    }
+
     return (
         <>
             <div className="row">
@@ -17,11 +27,11 @@ function TweetBox(props) {
                             <button className="btn btn-sm btn-info">Comment</button>
                         </div>
                     </div>
-                </div>
-                <div className="col-1 float-right">
-                    <button type="button" class="close" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                    <div className="float-right">
+                        <button onClick={() => onDeletePost(tweet.id)} type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
                 </div>
 
             </div>

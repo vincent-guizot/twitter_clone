@@ -10,10 +10,10 @@ export const getTweets = () => {
                 access_token : localStorage.getItem('access_token')
             }
         })
-        .then(tweets=>{
+        .then(result=>{
             dispatch({
                 type: 'GET_TWEETS',
-                payload: tweets.data
+                payload: result.data
             })
         })
         .catch(err=>{
@@ -26,7 +26,7 @@ export const addTweet = (tweet) => {
     console.log('tweet: ', tweet);
     return (dispatch) => {
         axios({
-            method: 'post',
+            method: 'POST',
             url: URL ,
             headers: {
                 access_token: localStorage.getItem('access_token')
@@ -43,4 +43,26 @@ export const addTweet = (tweet) => {
             console.log(err)
         });
     }    
+}
+
+export const deleteTweet = (id) => {
+    return(dispatch) => {
+        axios({
+            method: 'DELETE',
+            url : URL + '/' +id,
+            headers : {
+                access_token : localStorage.getItem('access_token')
+            }
+        })
+        .then(result=>{
+            // dispatch(getTweets())
+            dispatch({
+                type:'DELETE_TWEET',
+                payload : {id}
+            })
+        })
+        .catch(err=>{
+            console.error(err)
+        })
+    }
 }
