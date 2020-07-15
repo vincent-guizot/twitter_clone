@@ -11,7 +11,7 @@ import store from './store'
 
 localStorage.setItem(
   'access_token',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTk0NzIxNDU1fQ.2RxFl-OD3CplDCKJQgOCSNyaySc8GlBREBztGT3O_Ss')
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTk0Nzk5MDU2fQ.eBRj703buff1jEgkiJURxpWRCursMCa34yx0wdssCug')
 localStorage.setItem(
   'UserId',
   '1')

@@ -37,8 +37,20 @@ class TweetController {
             media: form.media,
             UserId: userId
         })
-            .then(Tweet => {
-                res.status(201).json(Tweet)
+        .then(tweet=>{
+            return Tweet.findOne({
+                where: {
+                    id: tweet.id
+                },
+                include: [
+                    { model: User, attributes: { exclude: ['password', 'createdAt', 'updatedAt'] } },
+                    { model: Like, attributes: ['id', 'TweetId', 'UserId'] },
+                    { model: Comment, attributes: ['id', 'TweetId', 'UserId', 'reply'] },
+                ],
+            })
+        })
+            .then(tweet => {
+                res.status(201).json(tweet)
             })
             .catch(err => {
                 next(err)

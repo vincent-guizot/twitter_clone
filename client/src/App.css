@@ -73,3 +73,6 @@ body{
   font-size: 1.25rem;
   cursor: pointer;
 }
+.red-heart {
+  color: red;
+}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch } from "react-redux";
 
 
@@ -11,26 +11,27 @@ function TweetBox(props) {
     const onDeletePost = (id) => {
         dispatch(deleteTweet(id))
     }
+    
+    const userid = Number(localStorage.getItem('UserId'))
+    const [isLiked, setisLiked] = useState(tweet.Likes.some(el => el.UserId === userid) ? "fa fa-heart red-heart" : "fa fa-heart" )
 
     const onHandleLike = (tweet) => {
         // console.log(tweet.Likes)
-        const userid = localStorage.getItem('UserId')
         let checkLike = true
-        // console.log(userid)
         tweet.Likes.forEach(el => {
-            if (el.UserId === Number(userid)) {
+            if (el.UserId === userid) {
                 checkLike = !checkLike
                 console.log("unlike", el)
-                dispatch(likeTweet(tweet.id))
+                setisLiked("fa fa-heart")
+                dispatch(unlikeTweet(tweet.id))
             }
         })
         if (checkLike) {
             console.log("like")
-            dispatch(unlikeTweet(tweet.id))
+            setisLiked("fa fa-heart red-heart")
+            dispatch(likeTweet(tweet.id))
         }
     }
-
-
 
     return (
         <>
@@ -46,7 +47,7 @@ function TweetBox(props) {
 
                         <div className="comment-bar">
                             <span className="mr-5">
-                                <i onClick={() => onHandleLike(tweet)} className="fa fa-heart"></i> </span>
+                                <i onClick={() => onHandleLike(tweet)} className={isLiked}></i> </span>
                             <span className="mr-5 "><i onClick={() => console.log("Comment")} className="fa fa-comment"></i> </span>
                             <span className="mr-5 "><i onClick={() => console.log("Share")} className="fa fa-retweet"></i> </span>
                         </div>
