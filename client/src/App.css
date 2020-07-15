@@ -22,7 +22,6 @@ body{
 }
 .tweets-list {
   height: calc(100vh - 191px );
-  
   overflow-y: scroll;
 }
 /* width */
@@ -48,7 +47,7 @@ body{
 }
 
 .follow-list, .tag-list{
-  height: calc((100vh - 56px -2rem)/2);
+  height: calc((84vh)/2);
   
 }
 .user-name{

@@ -31,7 +31,7 @@ export default function MainContent() {
                         <div className="search-bar p-3">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text mr-3" id="addon-wrapping">@</span>
+                                    <span class="input-group-text mr-3" id="addon-wrapping">#</span>
                                 </div>
                                 <input onChange={(e) => setTweet(e.target.value)} type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" />
                                 <div class="input-group-append">
