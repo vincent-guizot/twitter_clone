@@ -6,20 +6,30 @@ import { Link, useHistory } from 'react-router-dom'
 
 function Login() {
     const dispatch = useDispatch()
-    const history = useHistory()
+
     const [email, setEmail] = useState("")
     const [pwd, setPwd] = useState("")
+    const [username, setUsername] = useState("")
+    const [image, setImage] = useState("")
 
     const [page, setPage] = useState('login')
 
     const onHandleLogin = () => {
-        history.push('/home')
         dispatch(login({
             email,
             password: pwd
         }))
     }
 
+    const onHandleRegister = () => {
+        dispatch(register({
+            email,
+            password: pwd,
+            username,
+            image_url : image
+        }))
+    }
+    
     {
         // page login
         if (page === "login") {
@@ -46,9 +56,9 @@ function Login() {
                                                 <input type="checkbox" className="form-check-input" id="exampleCheck1" />
                                                 <label className="form-check-label" for="exampleCheck1">Remember account</label>
                                             </div>
-                                            <Link to="/home" onClick={onHandleLogin} type="button" className="btn btn-primary">LOGIN</Link>
+                                            <Link to="/home" onClick={onHandleLogin} type="button" className="btn btn-block btn-primary">LOGIN</Link>
                                         </form>
-                                        <a onClick={() => setPage('register')} href="true">Register Now</a>
+                                        <button onClick={() => setPage('register')} >Register Now</button>
                                     </div>
                                 </div>
                             </div>
@@ -67,8 +77,22 @@ function Login() {
                                 <div className="col-5">
                                     <div className="card p-4">
                                         <form>
+                                        <div className="form-group">
+                                                <label >Username</label>
+                                                <input type="text" className="form-control"
+                                                    onChange={(e) => setUsername(e.target.value)} />
+
+                                                <small id="emailHelp" className="form-text text-muted"></small>
+                                            </div>
                                             <div className="form-group">
-                                                <label >Email address</label>
+                                                <label >Image</label>
+                                                <input type="text" className="form-control"
+                                                    onChange={(e) => setImage(e.target.value)} />
+
+                                                <small id="emailHelp" className="form-text text-muted">Must link format!!</small>
+                                            </div>
+                                            <div className="form-group">
+                                                <label >Email</label>
                                                 <input type="email" className="form-control"
                                                     onChange={(e) => setEmail(e.target.value)} />
 
@@ -82,9 +106,9 @@ function Login() {
                                                 <input type="checkbox" className="form-check-input" id="exampleCheck1" />
                                                 <label className="form-check-label" for="exampleCheck1">Remember account</label>
                                             </div>
-                                            <button onClick={onHandleLogin} type="button" className="btn btn-primary">LOGIN</button>
+                                            <Link to="/register" onClick={onHandleRegister} type="button" className="btn btn-block btn-primary">REGISTER</Link>
                                         </form>
-                                        <a onClick={() => setPage('login')} href="true">Have account, Login Now</a>
+                                        <button onClick={() => setPage('login')} >Have account, Login Now</button>
                                     </div>
                                 </div>
                             </div>

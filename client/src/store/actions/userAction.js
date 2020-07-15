@@ -8,8 +8,9 @@ export const login = (userLogin) => {
             url: URL + 'login',
             data : userLogin
         }).then((result) => {
+            console.log(result.data)
             localStorage.setItem('access_token', result.data.access_token)
-            localStorage.setItem('id', result.data.id)
+            localStorage.setItem('UserId', result.data.UserId)
             dispatch({
                 type: "LOGIN",
                 payload: result.data
@@ -21,16 +22,17 @@ export const login = (userLogin) => {
 }
 
 export const register = (userRegister) => {
+    console.log(userRegister)
     return (dispatch) => {
         axios({
             method: 'POST',
-            url: URL + 'login',
+            url: URL + 'register',
             data : userRegister
         }).then((result) => {
             localStorage.setItem('access_token', result.data.access_token)
-            localStorage.setItem('id', result.data.id)
+            localStorage.setItem('UserId', result.data.UserId)
             dispatch({
-                type: "LOGIN",
+                type: "REGISTER",
                 payload: result.data
             })
         }).catch((err) => {

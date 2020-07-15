@@ -7,6 +7,8 @@ export default (state = initialState, { type, payload }) => {
 
     case "LOGIN":
         return { ...state, user: payload }
+    case "REGISTER":
+        return {...state, user : state.user.concat(payload)}
     default:
         return state
     }
