@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useEffect} from 'react'
+import { useHistory, Redirect } from "react-router-dom";
 import Navbar from '../components/Navbar'
 import MainContent from '../components/MainContent'
 
 function Home() {
+    if(!localStorage.getItem("access_token")) {
+        return (
+            <Redirect to="/login"/>
+        )
+    }
+
     return (
         <div className="h-100">
             <Navbar></Navbar>

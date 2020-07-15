@@ -52,13 +52,17 @@ class UserController {
                 })        
             }
         })
+        // .then(user => {
+        //     res.status(201).json({
+        //         id : user.id,
+        //         email : user.email,
+        //         username : user.username,
+        //         image_url: user.image_url
+        //     })
+        // })
         .then(user => {
-            res.status(201).json({
-                id : user.id,
-                email : user.email,
-                username : user.username,
-                image_url: user.image_url
-            })
+            const access_token = tokenGenerator(user)
+            res.status(200).json({access_token, UserId:user.id})
         })
         .catch(err => {
             next(err)

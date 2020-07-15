@@ -1,10 +1,19 @@
 import Home from '../pages/Home'
+import Login from '../pages/Login'
+// import CheckLogin from '../pages/checkLogin'
 
 const routes = [
     {
-        path: "/",
+        path: "/home",
         component: Home,
-        exact : true
+        exact : true,
+        public : false
+    },
+    {
+        path: "/login",
+        component: Login,
+        exact : true,
+        public : true
     },
 ]
 
