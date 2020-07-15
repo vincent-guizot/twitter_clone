@@ -12,6 +12,9 @@ import store from './store'
 localStorage.setItem(
   'access_token',
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTk0NzIxNDU1fQ.2RxFl-OD3CplDCKJQgOCSNyaySc8GlBREBztGT3O_Ss')
+localStorage.setItem(
+  'UserId',
+  '1')
 
 function App() {
 
