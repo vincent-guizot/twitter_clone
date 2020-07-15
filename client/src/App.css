@@ -22,7 +22,6 @@ body{
 }
 .tweets-list {
   height: calc(100vh - 191px );
-  
   overflow-y: scroll;
 }
 /* width */
