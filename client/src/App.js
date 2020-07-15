@@ -4,6 +4,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Redirect,
 } from "react-router-dom";
 import routes from './routes'
 import { Provider } from 'react-redux'
@@ -38,7 +39,14 @@ function App() {
             {routes.map((route, i) => (
               <RouteWithSubRoutes key={i} {...route} />
             ))}
+            <Redirect
+              from="/"
+              to="/home"
+            >
+
+            </Redirect>
           </Switch>
+
         </div>
       </Router>
     </Provider>
