@@ -8,7 +8,6 @@ function Login() {
     const dispatch = useDispatch()
     const history = useHistory()
     const { user } = useSelector(state => state.userReducer)
-    console.log(user)
     useEffect(() => {
         if (localStorage.getItem("access_token")) {
             history.push('/home')
@@ -104,7 +103,7 @@ function Login() {
                                             </div>
                                             <div className="form-group">
                                                 <label >Image</label>
-                                                <input type="text" className="form-control"
+                                                <input type="file" className="form-control"
                                                     onChange={(e) => setImage(e.target.value)} />
 
                                                 <small id="emailHelp" className="form-text text-muted">Must link format!!</small>
@@ -122,7 +121,7 @@ function Login() {
                                             </div>
                                             <div className="form-group form-check">
                                                 <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                                                <label className="form-check-label" for="exampleCheck1">Remember account</label>
+                                                <label className="form-check-label" >Remember account</label>
                                             </div>
                                             <button onClick={onHandleRegister} type="button" className="btn btn-block btn-primary">REGISTER</button>
                                         </form>
