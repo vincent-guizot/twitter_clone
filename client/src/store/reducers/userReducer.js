@@ -1,6 +1,6 @@
 const initialState = {
     user : {},
-    // users : []
+    users : []
 }
 
 export const userReducer = (state = initialState, { type, payload }) => {
