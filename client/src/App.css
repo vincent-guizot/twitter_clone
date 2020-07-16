@@ -21,7 +21,7 @@ body{
   border-bottom: 1px solid #ccc;
 }
 .tweets-list {
-  height: calc(100vh - 191px );
+  height: calc(100% - 145px );
   overflow-y: scroll;
 }
 /* width */
@@ -37,13 +37,13 @@ body{
  
 /* Handle */
 .tweets-list::-webkit-scrollbar-thumb {
-  background: #f0f0f0; 
-  border-radius: .5rem;
+  background: #ccc; 
+  /* border-radius: .5rem; */
 }
 
 /* Handle on hover */
 .tweets-list::-webkit-scrollbar-thumb:hover {
-  background: #b30000; 
+  background: #17a2b8; 
 }
 
 .follow-list, .tag-list{
@@ -77,4 +77,26 @@ body{
 }
 .red-heart {
   color: red;
+}
+
+.auth {
+  height: 100vh;
+}
+@keyframes start-page {
+  0% {
+    transform: translateY(10%);
+    opacity: 0;
+  }
+  100%{ 
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.auth-login {
+  animation-name: start-page ;
+  animation-duration: 0.5s;
+}
+
+.imglogin {
+  background: #000;
 }
