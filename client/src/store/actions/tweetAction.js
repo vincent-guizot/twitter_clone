@@ -25,7 +25,7 @@ export const getTweets = () => {
 
 export const addTweet = (tweet) => {
     // without image
-    if (tweet.media === '') {
+    if (tweet.media === null) {
         return (dispatch) => {
             axios({
                 method: 'POST',
@@ -146,5 +146,27 @@ export const unlikeTweet = (TweetId) => {
             }).catch((err) => {
                 console.log(err)
             });
+    }
+}
+
+export const addComment = (comment) => {
+    return(dispatch) => {
+        axios({
+            method: 'POST',
+            url: URL + '/comment',
+            headers: {
+                access_token: localStorage.getItem('access_token')
+            },
+            data: comment
+        })
+        .then((result) => {
+            console.log(result.data)
+            dispatch({
+                type: 'ADD_COMMENT',
+                payload: result.data
+            })
+        }).catch((err) => {
+            console.log(err)
+        });
     }
 }

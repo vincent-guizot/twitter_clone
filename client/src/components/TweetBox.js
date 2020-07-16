@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 
-import { deleteTweet, likeTweet, unlikeTweet } from '../store/actions/tweetAction'
+import { deleteTweet, likeTweet, unlikeTweet, addComment } from '../store/actions/tweetAction'
 
 function TweetBox(props) {
     const { tweet } = props
     const dispatch = useDispatch()
-
+    const { user } = useSelector(state => state.userReducer)
+    const [comment, setComment] = useState("")
     const onDeletePost = (id) => {
         dispatch(deleteTweet(id))
     }
@@ -30,6 +31,13 @@ function TweetBox(props) {
             setisLiked("fa fa-heart red-heart")
             dispatch(likeTweet(tweet.id))
         }
+    }
+
+    const onHandleComment = () => {
+        if (comment) {
+            dispatch(addComment({reply: comment, TweetId: tweet.id}))
+        }
+        setComment('')
     }
 
     return (
@@ -59,7 +67,6 @@ function TweetBox(props) {
                             <span aria-hidden="true">&times;</span>
                         </button> */}
                     <div className="btn-group">
-
                         <button type="button" className="btn btn-outline-info btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span className="sr-only">Toggle Dropdown</span>
                         </button>
@@ -68,6 +75,15 @@ function TweetBox(props) {
                             <button className="dropdown-item" href="true">Edit</button>
                         </div>
                     </div>
+                </div>
+
+                {/* Comment */}
+                <div className="d-flex">
+                    <img src={localStorage.getItem("avatar")} style={{ "width": "30px", "height": "30px" }} />
+                    <form >
+                        <input type="text" onChange={(e) => setComment(e.target.value)} />
+                        <button type="button" onClick={onHandleComment} className="btn btn-primary">add comment</button>
+                    </form>
                 </div>
             </div>
         </>
