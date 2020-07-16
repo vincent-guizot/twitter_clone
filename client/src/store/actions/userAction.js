@@ -11,7 +11,6 @@ export const login = (userLogin) => {
             console.log(result.data)
             localStorage.setItem('access_token', result.data.access_token)
             localStorage.setItem('UserId', result.data.UserId)
-
             dispatch({
                 type: "LOGIN",
                 payload: result.data

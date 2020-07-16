@@ -1,20 +1,23 @@
 import Home from '../pages/Home'
 import Login from '../pages/Login'
+import { Children } from 'react'
 // import CheckLogin from '../pages/checkLogin'
 
 const routes = [
     {
-        path: "/home",
+        path: "/",
         component: Home,
-        exact : true,
-        public : false
+        exact: true,
+        public: false
     },
     {
-        path: "/login",
+        path: "/auth",
         component: Login,
-        exact : true,
-        public : true
+        exact: true,
+        public: true,
     },
 ]
+
+
 
 export default routes

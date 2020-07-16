@@ -11,12 +11,11 @@ function TweetBox(props) {
     const onDeletePost = (id) => {
         dispatch(deleteTweet(id))
     }
-    
+
     const userid = Number(localStorage.getItem('UserId'))
-    const [isLiked, setisLiked] = useState(tweet.Likes.some(el => el.UserId === userid) ? "fa fa-heart red-heart" : "fa fa-heart" )
+    const [isLiked, setisLiked] = useState(tweet.Likes.some(el => el.UserId === userid) ? "fa fa-heart red-heart" : "fa fa-heart")
 
     const onHandleLike = (tweet) => {
-        // console.log(tweet.Likes)
         let checkLike = true
         tweet.Likes.forEach(el => {
             if (el.UserId === userid) {
@@ -42,9 +41,10 @@ function TweetBox(props) {
                 <div className="col-10">
                     <div className="float-left ml-3">
                         <span className="user-name mr-1">{tweet.User.username}</span> <span className="text-muted">{tweet.User.email}</span>
-                        <p className="font-weight-light">{tweet.tweet}
-                        </p>
-
+                        <div className="mb-4">
+                            <p className="font-weight-light">{tweet.tweet}</p>
+                            {tweet.media && <img src={tweet.media} style={{ "width": "100%", "height": "240px" }} />}
+                        </div>
                         <div className="comment-bar">
                             <span className="mr-5">
                                 <i onClick={() => onHandleLike(tweet)} className={isLiked}></i> </span>

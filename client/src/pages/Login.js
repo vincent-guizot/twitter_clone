@@ -8,15 +8,6 @@ function Login() {
     const dispatch = useDispatch()
     const history = useHistory()
     const { user } = useSelector(state => state.userReducer)
-    useEffect(() => {
-        if (localStorage.getItem("access_token")) {
-            history.push('/home')
-            // <Redirect to="/home" />
-            // return () => {
-            
-            // }
-        }
-    }, [user])
 
     const [email, setEmail] = useState("")
     const [pwd, setPwd] = useState("")
@@ -40,29 +31,24 @@ function Login() {
             image_url: image
         }))
     }
-
-    // if (localStorage.getItem("access_token")) {
-    //     return (
-    //         <Redirect to="/home" />
-    //     )
-    // }
+    
+    if (localStorage.getItem("access_token")) return <Redirect to="/" />
 
     {
         // page login
         if (page === "login") {
             return (
                 <>
-                    <div className="h-100">
-                        <div className="container">
-                            <div className="row w-100 justify-content-center align-middle">
-                                <div className="col-5">
-                                    <div className="card p-4">
+                    <div className="w-100 h-100 d-flex justify-content-center align-items">
+                            <div className="row w-75 ">
+                                <div className="col-5 bg-info"></div>
+                                <div className="col-7 m-auto">
+                                    <div className="w-75 p-4">
                                         <form>
                                             <div className="form-group">
                                                 <label >Email address</label>
                                                 <input type="email" className="form-control"
                                                     onChange={(e) => setEmail(e.target.value)} />
-
                                                 <small id="emailHelp" className="form-text text-muted">Input with email format, thanks!</small>
                                             </div>
                                             <div className="form-group">
@@ -75,11 +61,10 @@ function Login() {
                                             </div>
                                             <button onClick={onHandleLogin} type="button" className="btn btn-block btn-primary">LOGIN</button>
                                         </form>
-                                        <button onClick={() => setPage('register')} >Register Now</button>
+                                        <button className="btn btn-link mt-3 font-style" onClick={() => setPage('register')} >Register Now</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </>
             )
