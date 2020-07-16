@@ -20,7 +20,7 @@ function Navbar() {
                         </div>
                     </div>
                     <div className="ml-auto">
-                        <Link to="/login" onClick={()=> onHandleLogout()} className="btn btn-outline-info">LOGOUT</Link>
+                        <Link to="/auth" onClick={()=> onHandleLogout()} className="btn btn-outline-info">LOGOUT</Link>
                     </div>
                 </nav>
             </div>
