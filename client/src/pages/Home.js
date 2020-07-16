@@ -4,13 +4,7 @@ import Navbar from '../components/Navbar'
 import MainContent from '../components/MainContent'
 
 function Home() {
-    if(!localStorage.getItem("access_token")) {
-        return (
-            <Redirect to="/login"/>
-        )
-    }
-
-    return (
+     return (
         <div className="h-100">
             <Navbar></Navbar>
             <MainContent></MainContent>

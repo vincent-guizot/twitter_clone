@@ -8,15 +8,6 @@ function Login() {
     const dispatch = useDispatch()
     const history = useHistory()
     const { user } = useSelector(state => state.userReducer)
-    useEffect(() => {
-        if (localStorage.getItem("access_token")) {
-            history.push('/home')
-            // <Redirect to="/home" />
-            // return () => {
-            
-            // }
-        }
-    }, [user])
 
     const [email, setEmail] = useState("")
     const [pwd, setPwd] = useState("")
@@ -41,11 +32,7 @@ function Login() {
         }))
     }
 
-    // if (localStorage.getItem("access_token")) {
-    //     return (
-    //         <Redirect to="/home" />
-    //     )
-    // }
+    if (localStorage.getItem("access_token")) return <Redirect to="/" />
 
     {
         // page login
@@ -62,7 +49,6 @@ function Login() {
                                                 <label >Email address</label>
                                                 <input type="email" className="form-control"
                                                     onChange={(e) => setEmail(e.target.value)} />
-
                                                 <small id="emailHelp" className="form-text text-muted">Input with email format, thanks!</small>
                                             </div>
                                             <div className="form-group">
