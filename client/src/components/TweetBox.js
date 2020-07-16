@@ -1,22 +1,22 @@
 import React, { useState } from 'react'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 
-import { deleteTweet, likeTweet, unlikeTweet } from '../store/actions/tweetAction'
+import { deleteTweet, likeTweet, unlikeTweet, addComment } from '../store/actions/tweetAction'
 
 function TweetBox(props) {
     const { tweet } = props
     const dispatch = useDispatch()
-
+    const { user } = useSelector(state => state.userReducer)
+    const [comment, setComment] = useState("")
     const onDeletePost = (id) => {
         dispatch(deleteTweet(id))
     }
-    
+
     const userid = Number(localStorage.getItem('UserId'))
-    const [isLiked, setisLiked] = useState(tweet.Likes.some(el => el.UserId === userid) ? "fa fa-heart red-heart" : "fa fa-heart" )
+    const [isLiked, setisLiked] = useState(tweet.Likes.some(el => el.UserId === userid) ? "fa fa-heart red-heart" : "fa fa-heart")
 
     const onHandleLike = (tweet) => {
-        // console.log(tweet.Likes)
         let checkLike = true
         tweet.Likes.forEach(el => {
             if (el.UserId === userid) {
@@ -33,6 +33,13 @@ function TweetBox(props) {
         }
     }
 
+    const onHandleComment = () => {
+        if (comment) {
+            dispatch(addComment({reply: comment, TweetId: tweet.id}))
+        }
+        setComment('')
+    }
+
     return (
         <>
             <div className="row">
@@ -42,9 +49,10 @@ function TweetBox(props) {
                 <div className="col-10">
                     <div className="float-left ml-3">
                         <span className="user-name mr-1">{tweet.User.username}</span> <span className="text-muted">{tweet.User.email}</span>
-                        <p className="font-weight-light">{tweet.tweet}
-                        </p>
-
+                        <div className="mb-4">
+                            <p className="font-weight-light">{tweet.tweet}</p>
+                            {tweet.media && <img src={tweet.media} style={{ "width": "100%", "height": "240px" }} />}
+                        </div>
                         <div className="comment-bar">
                             <span className="mr-5">
                                 <i onClick={() => onHandleLike(tweet)} className={isLiked}></i> </span>
@@ -59,7 +67,6 @@ function TweetBox(props) {
                             <span aria-hidden="true">&times;</span>
                         </button> */}
                     <div className="btn-group">
-
                         <button type="button" className="btn btn-outline-info btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span className="sr-only">Toggle Dropdown</span>
                         </button>
@@ -68,6 +75,15 @@ function TweetBox(props) {
                             <button className="dropdown-item" href="true">Edit</button>
                         </div>
                     </div>
+                </div>
+
+                {/* Comment */}
+                <div className="d-flex">
+                    <img src={localStorage.getItem("avatar")} style={{ "width": "30px", "height": "30px" }} />
+                    <form >
+                        <input type="text" onChange={(e) => setComment(e.target.value)} />
+                        <button type="button" onClick={onHandleComment} className="btn btn-primary">add comment</button>
+                    </form>
                 </div>
             </div>
         </>

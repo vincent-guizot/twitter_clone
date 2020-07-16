@@ -10,25 +10,23 @@ import routes from './routes'
 import { Provider } from 'react-redux'
 import store from './store'
 
-// localStorage.setItem(
-//   'access_token',
-//   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTk0Nzk5MDU2fQ.eBRj703buff1jEgkiJURxpWRCursMCa34yx0wdssCug')
-// localStorage.setItem(
-//   'UserId',
-//   '1')
-
 function App() {
 
-  function RouteWithSubRoutes(route) {
+  function PrivatRoutes(route) {
+    const Component = route.component 
+    const isLogin = localStorage.getItem('access_token')
     return (
       <Route
         path={route.path}
-        render={props => (
-          // pass the sub-routes down to keep nesting
-          <route.component {...props} routes={route.routes} />
-        )}
+        render={props => {
+          if (route.path !== '/auth' && !isLogin) {
+            return <Redirect to="/auth" />
+          } else {
+            return <Component {...route} />
+          }
+        }}
       />
-    );
+    )
   }
 
   return (
@@ -37,12 +35,8 @@ function App() {
         <div className="App">
           <Switch>
             {routes.map((route, i) => (
-              <RouteWithSubRoutes key={i} {...route} />
+              <PrivatRoutes key={i} {...route} />
             ))}
-            {!localStorage.getItem("access_token") ?
-              < Redirect from="/" to="/login"></Redirect> :
-              <Redirect from="/" to="/home" ></Redirect>
-            }
           </Switch>
         </div>
       </Router>

@@ -21,27 +21,37 @@ export const tweetReducer = (state = initialStore, { type, payload }) => {
             };
         case 'LIKE_TWEET':
             state.tweets.forEach(el => {
-                if(el.id === payload.TweetId){
+                if (el.id === payload.TweetId) {
                     el.Likes.push(payload)
                 }
             })
 
             return {
-                ...state, 
-                tweets: state.tweets 
+                ...state,
+                tweets: state.tweets
             }
         case 'UNLIKE_TWEET':
-            let newTweets = state.tweets.map(el=>{
-                if(el.id === payload.TweetId){
+            let newTweets = state.tweets.map(el => {
+                if (el.id === payload.TweetId) {
                     let tempLikes = el.Likes.filter(like => like.id !== payload.id)
                     el.Likes = tempLikes
                 }
                 return el
             })
-
             return {
-                ...state, 
-                tweets: newTweets 
+                ...state,
+                tweets: newTweets
+            }
+        case 'ADD_COMMENT':
+            let newTweetsComment = state.tweets.map(el => {
+                if (el.id === payload.TweetId) {
+                    el.Comment.concat(payload)
+                }
+                return el
+            })
+            return {
+                ...state,
+                tweets: newTweetsComment
             }
         default:
             return state;

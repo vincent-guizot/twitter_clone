@@ -2,34 +2,35 @@ const { User } = require('../models')
 
 const { tokenGenerator } = require('../helpers/jwt')
 const bcrypt = require('bcrypt')
+const { OAuth2Client } = require('google-auth-library');
 
 class UserController {
-    static login(req,res,next){
+    static login(req, res, next) {
         let form = req.body
         const errMessage = {
-            status : 400,
-            message : 'Invalid Email / Pwd'
+            status: 400,
+            message: 'Invalid Email / Pwd'
         }
         User.findOne({
-            where : {
-                email : form.email
+            where: {
+                email: form.email
             }
         })
-        .then(user => {
-            if(!user || !bcrypt.compareSync(form.password, user.password))
-                throw errMessage
-            return user
-        })
-        .then(user => {
-            const access_token = tokenGenerator(user)
-            res.status(200).json({access_token, UserId:user.id})
-        })
-        .catch(err => {
-            next(errMessage)
-        })
+            .then(user => {
+                if (!user || !bcrypt.compareSync(form.password, user.password))
+                    throw errMessage
+                return user
+            })
+            .then(user => {
+                const access_token = tokenGenerator(user)
+                res.status(200).json({ access_token, UserId: user.id, avatar: user.image_url })
+            })
+            .catch(err => {
+                next(errMessage)
+            })
     }
-    
-    static register(req,res,next){
+
+    static register(req, res, next) {
         let email = req.body.email
         let errMessage = {
             status: 400,
@@ -37,38 +38,86 @@ class UserController {
         }
         User.findOne({
             where: {
-                email : email
+                email: email
             }
-        }).then(user=>{
-            if(user){
+        }).then(user => {
+            if (user) {
                 throw errMessage
-            }else{
+            } else {
                 let form = req.body
                 return User.create({
-                    username : form.username,
-                    email : form.email,
-                    password : form.password,
-                    image_url : form.image_url
-                })        
+                    username: form.username,
+                    email: form.email,
+                    password: form.password,
+                    image_url: form.image_url
+                })
             }
         })
-        // .then(user => {
-        //     res.status(201).json({
-        //         id : user.id,
-        //         email : user.email,
-        //         username : user.username,
-        //         image_url: user.image_url
-        //     })
-        // })
-        .then(user => {
-            const access_token = tokenGenerator(user)
-            res.status(200).json({access_token, UserId:user.id})
-        })
-        .catch(err => {
-            next(err)
-        })
+            .then(user => {
+                const access_token = tokenGenerator(user)
+                res.status(200).json({ access_token, UserId: user.id, avatar: user.image_url  })
+            })
+            .catch(err => {
+                next(err)
+            })
     }
-    
+
+
+    static loginGoogle(req, res, next) {
+        let CLIENT_ID = process.env.CLIENT_ID
+        let token = req.body.idToken
+        let userName = null
+        let userEmail = null
+        const client = new OAuth2Client(CLIENT_ID);
+        // console.log('client: ', client);
+
+        client.verifyIdToken({
+            idToken: token,
+            audience: CLIENT_ID,
+        })
+            .then((ticket) => {
+                const payload = ticket.getPayload();
+                // console.log('payload: ', payload);
+                userEmail = payload.email;
+                userName = payload.name
+                console.log('userEmail: ', userEmail);
+                return User.findOne({
+                    where: {
+                        email: userEmail
+                    }
+                })
+            })
+            .then((data) => {
+                // console.log('data: ', data);
+                if (data) {
+                    console.log('data: ', data);
+                    let access_token = Jwt.generateToken(data)
+                    res.status(200).json({
+                        access_token,
+                        username: data.username
+                    })
+                    return
+                } else {
+                    let newUser = {
+                        username: userName,
+                        email: userEmail,
+                        password: process.env.PASSWORD_GOOGLE
+                    }
+                    // console.log('newUser: ', newUser);
+                    return User.create(newUser)
+                }
+            })
+            .then((data) => {
+                let access_token = Jwt.generateToken(data)
+                res.status(200).json({
+                    access_token,
+                    username: data.username
+                })
+                return
+            }).catch((err) => {
+                next({ name: 'ERROR_SERVER' })
+            });
+    }
 }
 
 module.exports = UserController
@@ -82,5 +131,5 @@ module.exports = UserController
  * 403 : Forbidden
  * 404 : Not Found
  * 500 : Internal Server Error
- * 
+ *
  */

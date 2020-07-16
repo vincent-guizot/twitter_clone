@@ -2,22 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { login, register } from '../store/actions/userAction'
+import { GoogleLogin } from 'react-google-login'
 import { Link, Redirect, useHistory } from 'react-router-dom'
 
 function Login() {
     const dispatch = useDispatch()
     const history = useHistory()
     const { user } = useSelector(state => state.userReducer)
-    console.log(user)
-    useEffect(() => {
-        if (localStorage.getItem("access_token")) {
-            history.push('/home')
-            // <Redirect to="/home" />
-            // return () => {
-            
-            // }
-        }
-    }, [user])
 
     const [email, setEmail] = useState("")
     const [pwd, setPwd] = useState("")
@@ -42,28 +33,27 @@ function Login() {
         }))
     }
 
-    // if (localStorage.getItem("access_token")) {
-    //     return (
-    //         <Redirect to="/home" />
-    //     )
-    // }
+    const responseGoogle = (response) => {
+        console.log(response);
+    }
+
+    if (localStorage.getItem("access_token")) return <Redirect to="/" />
 
     {
         // page login
         if (page === "login") {
             return (
                 <>
-                    <div className="h-100">
-                        <div className="container">
-                            <div className="row w-100 justify-content-center align-middle">
-                                <div className="col-5">
-                                    <div className="card p-4">
+                    <div className="w-100 h-100 d-flex justify-content-center align-items">
+                            <div className="row w-75 ">
+                                <div className="col-5 bg-info"></div>
+                                <div className="col-7 m-auto">
+                                    <div className="w-75 p-4">
                                         <form>
                                             <div className="form-group">
                                                 <label >Email address</label>
                                                 <input type="email" className="form-control"
                                                     onChange={(e) => setEmail(e.target.value)} />
-
                                                 <small id="emailHelp" className="form-text text-muted">Input with email format, thanks!</small>
                                             </div>
                                             <div className="form-group">
@@ -76,11 +66,18 @@ function Login() {
                                             </div>
                                             <button onClick={onHandleLogin} type="button" className="btn btn-block btn-primary">LOGIN</button>
                                         </form>
+                                        <GoogleLogin
+                                            clientId="736902288211-6rgfasm0s0rr15j2q5kb7r7lhr6ujl12.apps.googleusercontent.com"
+                                            buttonText="Login"
+                                            jsSrc="https://apis.google.com/js/api.js"
+                                            onSuccess={responseGoogle}
+                                            onFailure={responseGoogle}
+                                            cookiePolicy={'single_host_origin'}
+                                        />
                                         <button onClick={() => setPage('register')} >Register Now</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </>
             )
@@ -104,8 +101,8 @@ function Login() {
                                             </div>
                                             <div className="form-group">
                                                 <label >Image</label>
-                                                <input type="text" className="form-control"
-                                                    onChange={(e) => setImage(e.target.value)} />
+                                                <input type="file" className="form-control"
+                                                    onChange={(e) => setImage(e.target.files[0])} />
 
                                                 <small id="emailHelp" className="form-text text-muted">Must link format!!</small>
                                             </div>
@@ -122,7 +119,7 @@ function Login() {
                                             </div>
                                             <div className="form-group form-check">
                                                 <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                                                <label className="form-check-label" for="exampleCheck1">Remember account</label>
+                                                <label className="form-check-label" >Remember account</label>
                                             </div>
                                             <button onClick={onHandleRegister} type="button" className="btn btn-block btn-primary">REGISTER</button>
                                         </form>
