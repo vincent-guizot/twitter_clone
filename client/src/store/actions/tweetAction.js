@@ -25,23 +25,26 @@ export const getTweets = () => {
 export const addTweet = (tweet) => {
     console.log('tweet: ', tweet);
     return (dispatch) => {
-        axios({
-            method: 'POST',
-            url: URL,
-            headers: {
-                access_token: localStorage.getItem('access_token')
-            },
-            data: tweet,
-        })
-            .then((result) => {
-                // dispatch(getTweets())
-                dispatch({
-                    type: 'ADD_TWEET',
-                    payload: result.data
-                })
-            }).catch((err) => {
-                console.log(err)
-            });
+        let formData = new FormData()
+        formData.append("image", tweet.media, tweet.media.name)
+        console.log(formData)
+        // axios({
+        //     method: 'POST',
+        //     url: URL,
+        //     headers: {
+        //         access_token: localStorage.getItem('access_token')
+        //     },
+        //     data: tweet,
+        // })
+        //     .then((result) => {
+        //         // dispatch(getTweets())
+        //         dispatch({
+        //             type: 'ADD_TWEET',
+        //             payload: result.data
+        //         })
+        //     }).catch((err) => {
+        //         console.log(err)
+        //     });
     }
 }
 

@@ -16,7 +16,6 @@ function TweetBox(props) {
     const [isLiked, setisLiked] = useState(tweet.Likes.some(el => el.UserId === userid) ? "fa fa-heart red-heart" : "fa fa-heart" )
 
     const onHandleLike = (tweet) => {
-        // console.log(tweet.Likes)
         let checkLike = true
         tweet.Likes.forEach(el => {
             if (el.UserId === userid) {
