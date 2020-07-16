@@ -55,9 +55,6 @@ export default function MainContent() {
                                 <input
                                     onChange={(e) => { 
                                         setMedia(e.target.files[0])
-                                        let fd = new FormData()
-                                        fd.append("image", media)
-                                        console.log(fd)
                                     }}
                                     ref={hiddenFileInput} type="file" className="d-none" />
                                 <div className="d-flex " >

@@ -1,4 +1,5 @@
 import axios from 'axios'
+const dummyImage = require('../../assets/icon/icn_upload.png')
 const URL = 'http://localhost:3000/tweet'
 
 export const getTweets = () => {
@@ -23,28 +24,59 @@ export const getTweets = () => {
 }
 
 export const addTweet = (tweet) => {
-    console.log('tweet: ', tweet);
-    return (dispatch) => {
+    // without image
+    if (tweet.media === '') {
+        return (dispatch) => {
+            axios({
+                method: 'POST',
+                url: URL,
+                headers: {
+                    access_token: localStorage.getItem('access_token')
+                },
+                data: {
+                    ...tweet,
+                    media: 'http://www.hotavatars.com/wp-content/uploads/2019/01/I80W1Q0.png'
+                },
+            }).then((result) => {
+                dispatch({
+                    type: 'ADD_TWEET',
+                    payload: result.data
+                })
+            }).catch((err) => {
+                console.log(err)
+            });
+        }
+    } else {
         let formData = new FormData()
         formData.append("image", tweet.media, tweet.media.name)
-        console.log(formData)
-        // axios({
-        //     method: 'POST',
-        //     url: URL,
-        //     headers: {
-        //         access_token: localStorage.getItem('access_token')
-        //     },
-        //     data: tweet,
-        // })
-        //     .then((result) => {
-        //         // dispatch(getTweets())
-        //         dispatch({
-        //             type: 'ADD_TWEET',
-        //             payload: result.data
-        //         })
-        //     }).catch((err) => {
-        //         console.log(err)
-        //     });
+        return (dispatch) => {
+            axios({
+                method: 'POST',
+                url: "https://cors-anywhere.herokuapp.com/https://api.imgur.com/3/upload",
+                headers: {
+                    Authorization: "Client-ID 24c11b941941402",
+                    "Access-Control-Allow-Origin": "*",
+                },
+                data: formData,
+            })
+                .then(result => {
+                    return axios({
+                        method: 'POST',
+                        url: URL,
+                        headers: {
+                            access_token: localStorage.getItem('access_token')
+                        },
+                        data: { ...tweet, media: result.data.data.link },
+                    })
+                }).then((result) => {
+                    dispatch({
+                        type: 'ADD_TWEET',
+                        payload: result.data
+                    })
+                }).catch((err) => {
+                    console.log(err)
+                });
+        }
     }
 }
 
