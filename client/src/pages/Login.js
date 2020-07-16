@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { login, register } from '../store/actions/userAction'
+import { GoogleLogin } from 'react-google-login'
 import { Link, Redirect, useHistory } from 'react-router-dom'
 
 function Login() {
@@ -30,6 +31,10 @@ function Login() {
             username,
             image_url: image
         }))
+    }
+
+    const responseGoogle = (response) => {
+        console.log(response);
     }
 
     if (localStorage.getItem("access_token")) return <Redirect to="/" />
@@ -61,6 +66,14 @@ function Login() {
                                             </div>
                                             <button onClick={onHandleLogin} type="button" className="btn btn-block btn-primary">LOGIN</button>
                                         </form>
+                                        <GoogleLogin
+                                            clientId="736902288211-6rgfasm0s0rr15j2q5kb7r7lhr6ujl12.apps.googleusercontent.com"
+                                            buttonText="Login"
+                                            jsSrc="https://apis.google.com/js/api.js"
+                                            onSuccess={responseGoogle}
+                                            onFailure={responseGoogle}
+                                            cookiePolicy={'single_host_origin'}
+                                        />
                                         <button onClick={() => setPage('register')} >Register Now</button>
                                     </div>
                                 </div>
