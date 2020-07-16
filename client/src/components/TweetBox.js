@@ -72,7 +72,7 @@ function TweetBox(props) {
                         </button>
                         <div className="dropdown-menu">
                             <button onClick={() => onDeletePost(tweet.id)} className="dropdown-item" href="true">Delete</button>
-                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target={"#modal"+ tweet.id}>
+                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target={"#modal-"+ tweet.id}>
                                 Launch demo modal
                             </button>
                             <EditModal TweetId={tweet.id}></EditModal>
