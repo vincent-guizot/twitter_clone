@@ -48,7 +48,7 @@ export default function MainContent() {
                                 </div>
                                 <input onChange={(e) => setTweet(e.target.value)} type="text" className="form-control" placeholder="Share your thought.." />
                                 <div className="input-group-append">
-                                    <button onClick={onHandlePost} className="btn btn-outline-info" type="button" id="button-addon2">Post Tweet</button>
+                                    <button onClick={onHandlePost} className="btn btn-outline-info" type="button" id="button-addon2">Post </button>
                                 </div>
                             </div>
                             <div onClick={onHandleUpload} style={{ backgroundColor: "#e3e3e3", borderRadius: 10, cursor: 'pointer' }}>
