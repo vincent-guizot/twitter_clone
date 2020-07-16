@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from "react-redux";
-
+import EditModal from "./EditModal";
 
 import { deleteTweet, likeTweet, unlikeTweet, addComment } from '../store/actions/tweetAction'
 
@@ -35,7 +35,7 @@ function TweetBox(props) {
 
     const onHandleComment = () => {
         if (comment) {
-            dispatch(addComment({reply: comment, TweetId: tweet.id}))
+            dispatch(addComment({ reply: comment, TweetId: tweet.id }))
         }
         setComment('')
     }
@@ -67,17 +67,31 @@ function TweetBox(props) {
                             <span aria-hidden="true">&times;</span>
                         </button> */}
                     <div className="btn-group">
-                        <button type="button" className="btn btn-outline-info btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button type="button" className="btn  btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span className="sr-only">Toggle Dropdown</span>
                         </button>
                         <div className="dropdown-menu">
                             <button onClick={() => onDeletePost(tweet.id)} className="dropdown-item" href="true">Delete</button>
-                            <button className="dropdown-item" href="true">Edit</button>
+                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target={"#modal-"+ tweet.id}>
+                                Launch demo modal
+                            </button>
+                            <EditModal TweetId={tweet.id}></EditModal>
                         </div>
                     </div>
                 </div>
 
                 {/* Comment */}
+                {/* {JSON.stringify(tweet.Comments)} */}
+                {tweet.Comments.map(el => {
+                    return (
+                        <div className="d-flex">
+                            <img src={el.User.image_url} style={{ "width": "30px", "height": "30px" }} />
+                            <div>
+                                <p>{el.reply}</p>
+                            </div>
+                        </div>
+                    )
+                })}
                 <div className="d-flex">
                     <img src={localStorage.getItem("avatar")} style={{ "width": "30px", "height": "30px" }} />
                     <form >

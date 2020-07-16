@@ -17,7 +17,14 @@ class TweetController {
             include: [
                 { model: User, attributes: { exclude: ['password', 'createdAt', 'updatedAt'] } },
                 { model: Like, attributes: ['id', 'TweetId', 'UserId'] },
-                { model: Comment, attributes: ['id', 'TweetId', 'UserId', 'reply'] },
+                {
+                    model: Comment,
+                    attributes: ['id', 'TweetId', 'UserId', 'reply'],
+                    include: [
+                        { model: User, attributes: { exclude: ['password', 'createdAt', 'updatedAt'] } },
+
+                    ]
+                },
             ],
             order: [["updatedAt", 'DESC']]
         })
@@ -187,8 +194,18 @@ class TweetController {
             reply,
             UserId
         })
-            .then(comment => {
-                res.status(200).json(comment)
+        .then(result => {
+            return Comment.findOne({
+                where : {
+                    id : result.id
+                },
+                include : [
+                    { model: User, attributes: { exclude: ['password', 'createdAt', 'updatedAt'] } },
+                ]
+            })
+        })
+            .then(result => {
+                res.status(200).json(result)
             })
             .catch(err => {
                 next(err)

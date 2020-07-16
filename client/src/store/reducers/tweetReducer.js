@@ -45,7 +45,8 @@ export const tweetReducer = (state = initialStore, { type, payload }) => {
         case 'ADD_COMMENT':
             let newTweetsComment = state.tweets.map(el => {
                 if (el.id === payload.TweetId) {
-                    el.Comment.concat(payload)
+                    console.log("payload", payload)
+                    el.Comments = [...el.Comments,payload]
                 }
                 return el
             })

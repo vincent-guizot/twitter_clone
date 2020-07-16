@@ -43,15 +43,17 @@ function Login() {
         // page login
         if (page === "login") {
             return (
-                <>
-                    <div className="w-100 h-100 d-flex justify-content-center align-items">
-                            <div className="row w-75 ">
+                    <div className="w-100 auth d-flex justify-content-center align-items-center ">
+                <div className="w-50 auth-login border rounded">
+                            <div className="row">
                                 <div className="col-5 bg-info"></div>
-                                <div className="col-7 m-auto">
-                                    <div className="w-75 p-4">
+                                <div className="col-7 bg-white">
+                                    <div className="p-4">
+                                        <h3>Login</h3>
+                                        <hr/>
                                         <form>
                                             <div className="form-group">
-                                                <label >Email address</label>
+                                                <label >Email </label>
                                                 <input type="email" className="form-control"
                                                     onChange={(e) => setEmail(e.target.value)} />
                                                 <small id="emailHelp" className="form-text text-muted">Input with email format, thanks!</small>
@@ -64,7 +66,7 @@ function Login() {
                                                 <input type="checkbox" className="form-check-input" id="exampleCheck1" />
                                                 <label className="form-check-label" >Remember account</label>
                                             </div>
-                                            <button onClick={onHandleLogin} type="button" className="btn btn-block btn-primary">LOGIN</button>
+                                            <button onClick={onHandleLogin} type="button" className="btn btn-block btn-info">LOGIN</button>
                                         </form>
                                         <GoogleLogin
                                             clientId="736902288211-6rgfasm0s0rr15j2q5kb7r7lhr6ujl12.apps.googleusercontent.com"
@@ -74,12 +76,12 @@ function Login() {
                                             onFailure={responseGoogle}
                                             cookiePolicy={'single_host_origin'}
                                         />
-                                        <button onClick={() => setPage('register')} >Register Now</button>
+                                        <button className="btn btn-" onClick={() => setPage('register')} >Register Now</button>
                                     </div>
                                 </div>
                             </div>
                     </div>
-                </>
+                </div>
             )
         }
         else {
@@ -121,7 +123,7 @@ function Login() {
                                                 <input type="checkbox" className="form-check-input" id="exampleCheck1" />
                                                 <label className="form-check-label" >Remember account</label>
                                             </div>
-                                            <button onClick={onHandleRegister} type="button" className="btn btn-block btn-primary">REGISTER</button>
+                                            <button onClick={onHandleRegister} type="button" className="btn btn-block btn-info">REGISTER</button>
                                         </form>
                                         <button onClick={() => setPage('login')} >Have account, Login Now</button>
                                     </div>
