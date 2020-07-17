@@ -49,13 +49,14 @@ function TweetBox(props) {
                 <div className="col-10">
                     <div className="float-left ml-3">
                         <span className="user-name mr-1">{tweet.User.username}</span> <span className="text-muted">{tweet.User.email}</span>
-                        <div className="mb-4">
+                        <p className="user-name text-small mr-1">{tweet.updatedAt.slice(0,10).split('-').reverse().join('/')}</p>
+                        <div className="mb-4 mt-4">
                             <p className="font-weight-light">{tweet.tweet}</p>
                             {tweet.media && <img src={tweet.media} style={{ "width": "100%", "height": "240px" }} />}
                         </div>
                         <div className="comment-bar">
                             <span className="mr-5">
-                                <i onClick={() => onHandleLike(tweet)} className={isLiked}></i> </span>
+                                <i onClick={() => onHandleLike(tweet)} className={isLiked}>Like</i> </span>
                             <span className="mr-5 "><i onClick={() => console.log("Comment")} className="fa fa-comment"></i> </span>
                             <span className="mr-5 "><i onClick={() => console.log("Share")} className="fa fa-retweet"></i> </span>
                         </div>
@@ -72,34 +73,38 @@ function TweetBox(props) {
                         </button>
                         <div className="dropdown-menu">
                             <button onClick={() => onDeletePost(tweet.id)} className="dropdown-item" href="true">Delete</button>
-                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target={"#modal-"+ tweet.id}>
-                                Launch demo modal
+                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target={"#modal-" + tweet.id}>
+                                edit
                             </button>
-                            <EditModal TweetId={tweet.id}></EditModal>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                {/* Comment */}
-                {/* {JSON.stringify(tweet.Comments)} */}
+            {/* Comment */}
+            {/* {JSON.stringify(tweet.Comments)} */}
+            <div>
                 {tweet.Comments.map(el => {
                     return (
                         <div className="d-flex">
-                            <img src={el.User.image_url} style={{ "width": "30px", "height": "30px" }} />
+                            <img class="rounded" src={el.User.image_url} style={{ "width": "30px", "height": "30px" }} />
                             <div>
                                 <p>{el.reply}</p>
                             </div>
                         </div>
                     )
                 })}
-                <div className="d-flex">
-                    <img src={localStorage.getItem("avatar")} style={{ "width": "30px", "height": "30px" }} />
-                    <form >
-                        <input type="text" onChange={(e) => setComment(e.target.value)} />
-                        <button type="button" onClick={onHandleComment} className="btn btn-primary">add comment</button>
-                    </form>
-                </div>
             </div>
+            <div className="d-flex">
+                <img src={localStorage.getItem("avatar")} style={{ "width": "30px", "height": "30px" }} />
+                <form >
+                    <input type="text" onChange={(e) => setComment(e.target.value)} />
+                    <button type="button" onClick={onHandleComment} className="btn btn-primary">add comment</button>
+                </form>
+            </div>
+
+            {/* pop up modal edit */}
+            <EditModal id={"modal-" + tweet.id} tweet={tweet} />
         </>
     )
 }

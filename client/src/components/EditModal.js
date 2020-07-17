@@ -2,7 +2,8 @@ import React from 'react'
 
 function EditModal(props) {
     return (
-            <div className="modal fade" id={"modal-"+props.TweetId} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <>
+            <div className="modal fade" id={props.id} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -12,7 +13,7 @@ function EditModal(props) {
                             </button>
                         </div>
                         <div className="modal-body">
-                            ...
+                            {JSON.stringify(props.tweet)}
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -21,6 +22,7 @@ function EditModal(props) {
                     </div>
                 </div>
             </div>
+        </>
     )
 }
 

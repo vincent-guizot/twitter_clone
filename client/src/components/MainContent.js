@@ -35,6 +35,10 @@ export default function MainContent() {
         hiddenFileInput.current.click()
     }
 
+    const onHandleLocation = () => {
+
+    }
+
     return (
         <div className="maincontent-first container-fluid">
             <div className="container p-0">
@@ -51,21 +55,40 @@ export default function MainContent() {
                                     <button onClick={onHandlePost} className="btn btn-outline-info" type="button" id="button-addon2">Post </button>
                                 </div>
                             </div>
-                            <div onClick={onHandleUpload} style={{ backgroundColor: "#e3e3e3", borderRadius: 10, cursor: 'pointer' }}>
-                                <input
-                                    onChange={(e) => { 
-                                        setMedia(e.target.files[0])
-                                    }}
-                                    ref={hiddenFileInput} type="file" className="d-none" />
-                                <div className="d-flex " >
-                                    <h1 class="text-hide"
-                                        style={{
-                                            backgroundImage: 'url("../assets/icon/icn_upload.png")',
-                                            width: 50, height: 50,
-                                            backgroundSize: "cover",
+                            <div className="d-flex justify-space-arround" style={{ backgroundColor: "#e3e3e3", borderRadius: 10, cursor: 'pointer' }}>
+                                <div onClick={onHandleUpload} style={{ cursor: 'pointer' }}>
+                                    <input
+                                        onChange={(e) => {
+                                            setMedia(e.target.files[0])
+                                        }}
+                                        ref={hiddenFileInput} type="file" className="d-none" />
+                                    <div className="d-flex " >
+                                        <h1 class="text-hide"
+                                            style={{
+                                                backgroundImage: 'url("../assets/icon/icn_upload.png")',
+                                                width: 50, height: 50,
+                                                backgroundSize: "cover",
 
-                                        }} />
-                                    <h6>Upload Foto / Video</h6>
+                                            }} />
+                                        <h6>Upload Foto / Video</h6>
+                                    </div>
+                                </div>
+                                <div onClick={onHandleLocation} style={{cursor: 'pointer' }}>
+                                    <input
+                                        onChange={(e) => {
+                                            setMedia(e.target.files[0])
+                                        }}
+                                        ref={hiddenFileInput} type="file" className="d-none" />
+                                    <div className="d-flex " >
+                                        <h1 class="text-hide"
+                                            style={{
+                                                backgroundImage: 'url("../assets/icon/icn_map.png")',
+                                                width: 50, height: 50,
+                                                backgroundSize: "cover",
+
+                                            }} />
+                                        <h6>Upload Location</h6>
+                                    </div>
                                 </div>
                             </div>
                         </div>
