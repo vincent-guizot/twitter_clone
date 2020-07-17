@@ -1,11 +1,11 @@
 import axios from 'axios';
-const URL = 'http://localhost:3000/user/auth/'
+const URL = 'http://localhost:3000/user/'
 
 export const login = (userLogin) => {
     return (dispatch) => {
         axios({
             method: 'POST',
-            url: URL + 'login',
+            url: URL + 'auth/login',
             data: userLogin
         }).then((result) => {
             console.log(result.data)
@@ -44,12 +44,11 @@ export const register = (userRegister) => {
                 console.log(result.data, 'result')
                 return axios({
                     method: 'POST',
-                    url: URL + 'register',
+                    url: URL + 'auth/register',
                     data: {...userRegister, image_url: result.data.data.link}
                 
                 })
             }).then((result) => {
-
                     localStorage.setItem('access_token', result.data.access_token)
                     localStorage.setItem('UserId', result.data.UserId)
                     dispatch({
@@ -60,4 +59,21 @@ export const register = (userRegister) => {
                     console.log(err)
                 });
             }
+}
+
+export const getUsers = () => {
+    return (dispatch) => {
+        axios({
+            method: 'GET',
+            url: URL + 'getUsers'
+        })
+        .then((result) => {
+            dispatch({
+                type: 'FECTH_USERS',
+                payload: result.data
+            })
+        }).catch((err) => {
+            console.log(err)
+        });
+    }
 }

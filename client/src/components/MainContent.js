@@ -3,14 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import TweetBox from './TweetBox'
 
 import { getTweets, addTweet } from '../store/actions/tweetAction'
+import { getUsers } from '../store/actions/userAction'
 
 export default function MainContent() {
     const dispatch = useDispatch()
     const hiddenFileInput = React.useRef(null);
     const { tweets } = useSelector(state => state.tweetReducer)
+    const { users } = useSelector(state => state.userReducer)
 
     useEffect(() => {
         dispatch(getTweets())
+        dispatch(getUsers())
     }, [dispatch])
 
     useEffect(() => {
@@ -100,10 +103,12 @@ export default function MainContent() {
                     </div>
                     {/* <div className="col-auto"></div> */}
                     <div className="col p-0">
-                        <div className="follow-list  mb-3">
-
+                        <div className="follow-list p-4 mb-3">
+                            <h6>Follow</h6>
+                            {JSON.stringify(users)}
                         </div>
-                        <div className="tag-list -">
+                        <div className="tag-list p-4">
+                            <h6>Tags</h6>
 
                         </div>
                     </div>

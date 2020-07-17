@@ -55,13 +55,12 @@ class UserController {
         })
             .then(user => {
                 const access_token = tokenGenerator(user)
-                res.status(200).json({ access_token, UserId: user.id, avatar: user.image_url  })
+                res.status(200).json({ access_token, UserId: user.id, avatar: user.image_url })
             })
             .catch(err => {
                 next(err)
             })
     }
-
 
     static loginGoogle(req, res, next) {
         let CLIENT_ID = process.env.CLIENT_ID
@@ -114,6 +113,20 @@ class UserController {
                     username: data.username
                 })
                 return
+            }).catch((err) => {
+                next({ name: 'ERROR_SERVER' })
+            });
+    }
+
+    static getUsers(req, res, nex) {
+        User.findAll({
+            attributes: {
+                exclude: ['password', 'createdAt', 'updatedAt']
+            }
+        })
+            .then((result) => {
+                console.log('result: ', result);
+                res.status(200).json(result)
             }).catch((err) => {
                 next({ name: 'ERROR_SERVER' })
             });
