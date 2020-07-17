@@ -1,5 +1,4 @@
 import axios from 'axios'
-const dummyImage = require('../../assets/icon/icn_upload.png')
 const URL = 'http://localhost:3000/tweet'
 
 export const getTweets = () => {
@@ -35,7 +34,7 @@ export const addTweet = (tweet) => {
                 },
                 data: {
                     ...tweet,
-                    media: 'http://www.hotavatars.com/wp-content/uploads/2019/01/I80W1Q0.png'
+                    media: 'http://www.coba.com/'
                 },
             }).then((result) => {
                 dispatch({
@@ -150,7 +149,7 @@ export const unlikeTweet = (TweetId) => {
 }
 
 export const addComment = (comment) => {
-    return(dispatch) => {
+    return (dispatch) => {
         axios({
             method: 'POST',
             url: URL + '/comment',
@@ -159,14 +158,14 @@ export const addComment = (comment) => {
             },
             data: comment
         })
-        .then((result) => {
-            console.log(result.data)
-            dispatch({
-                type: 'ADD_COMMENT',
-                payload: result.data
-            })
-        }).catch((err) => {
-            console.log(err)
-        });
+            .then((result) => {
+                console.log(result.data)
+                dispatch({
+                    type: 'ADD_COMMENT',
+                    payload: result.data
+                })
+            }).catch((err) => {
+                console.log(err)
+            });
     }
 }

@@ -4,8 +4,6 @@ import TweetBox from './TweetBox'
 
 import { getTweets, addTweet } from '../store/actions/tweetAction'
 
-import icnUpload from '../assets/icon/icn_upload.png'
-
 export default function MainContent() {
     const dispatch = useDispatch()
     const hiddenFileInput = React.useRef(null);
@@ -21,7 +19,6 @@ export default function MainContent() {
 
     const [tweet, setTweet] = useState("")
     const [media, setMedia] = useState(null)
-    // const [media, setMedia] = useState('https://via.placeholder.com/300/09f/fff.png')
 
     const onHandlePost = () => {
         dispatch(addTweet({

@@ -48,11 +48,11 @@ function TweetBox(props) {
                 </div>
                 <div className="col-10">
                     <div className="float-left ml-3">
-                        <span className="user-name mr-1">{tweet.User.username}</span> <span className="text-muted">{tweet.User.email}</span>
-                        <p className="user-name text-small mr-1">{tweet.updatedAt.slice(0,10).split('-').reverse().join('/')}</p>
+                        <span className="user-name mr-1">{tweet.User.username}</span> <span className="text-muted" style={{fontSize: '13px'}}>{tweet.User.email}</span>
+                        <p className="user-name text-small mt-2 text-muted" style={{fontSize: '11px', fontWeight: "lighter"}}>{tweet.updatedAt.slice(0,10).split('-').reverse().join('/')}</p>
                         <div className="mb-4 mt-4">
                             <p className="font-weight-light">{tweet.tweet}</p>
-                            {tweet.media && <img src={tweet.media} style={{ "width": "100%", "height": "240px" }} />}
+                            {tweet.media !== 'http://www.coba.com/' && <img src={tweet.media} style={{ "width": "100%", "height": "280px" }} />}
                         </div>
                         <div className="comment-bar">
                             <span className="mr-5">
@@ -64,16 +64,13 @@ function TweetBox(props) {
 
                 </div>
                 <div className="col-1">
-                    {/* <button onClick={() => onDeletePost(tweet.id)} type="button" className="close" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button> */}
                     <div className="btn-group">
                         <button type="button" className="btn  btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <span className="sr-only">Toggle Dropdown</span>
                         </button>
                         <div className="dropdown-menu">
                             <button onClick={() => onDeletePost(tweet.id)} className="dropdown-item" href="true">Delete</button>
-                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target={"#modal-" + tweet.id}>
+                            <button type="button" className="dropdown-item" data-toggle="modal" data-target={"#modal-" + tweet.id}>
                                 edit
                             </button>
                         </div>
