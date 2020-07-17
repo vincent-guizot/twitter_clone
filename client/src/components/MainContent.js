@@ -9,6 +9,7 @@ import { getUsers } from '../store/actions/userAction'
 export default function MainContent() {
     const dispatch = useDispatch()
     const hiddenFileInput = React.useRef(null);
+    const hiddenLocationInput = React.useRef(null);
     const { tweets } = useSelector(state => state.tweetReducer)
     const { users } = useSelector(state => state.userReducer)
 
@@ -23,6 +24,7 @@ export default function MainContent() {
 
     const [tweet, setTweet] = useState("")
     const [media, setMedia] = useState(null)
+    const [uploadPreview, setUploadPreview] = useState("")
     const [location, setLocation] = useState(null)
 
     const onHandlePost = () => {
@@ -38,6 +40,7 @@ export default function MainContent() {
     }
 
     const onHandleLocation = () => {
+        hiddenLocationInput.current.click()
         navigator.geolocation.getCurrentPosition(getLatLng);
         console.log("ini location lang lat :",location)
     }
@@ -54,7 +57,6 @@ export default function MainContent() {
         <>
             <div className="maincontent-first container-fluid">
                 <div className="container p-0">
-                    {/* {media && <Image scr={media.} />} */}
                     <div className="row mt-3">
                         <div className="maincontent-component col-8 bg-white p-0">
                             <div className="search-bar p-3">
@@ -67,12 +69,14 @@ export default function MainContent() {
                                         <button onClick={onHandlePost} className="btn btn-outline-info" type="button" id="button-addon2">Post </button>
                                     </div>
                                 </div>
+                                    {uploadPreview && <img scr={uploadPreview}style={{ height: 150, width: 200 }} />}   
                                 {location && <ViewLocation location={location} />}
                                 <div className="d-flex justify-space-arround" style={{ backgroundColor: "#e3e3e3", borderRadius: 10, cursor: 'pointer' }}>
                                     <div onClick={onHandleUpload} style={{ cursor: 'pointer' }}>
                                         <input
                                             onChange={(e) => {
                                                 setMedia(e.target.files[0])
+                                                setUploadPreview(URL.createObjectURL(e.target.files[0]))
                                             }}
                                             ref={hiddenFileInput} type="file" className="d-none" />
                                         <div className="d-flex " >
@@ -87,11 +91,7 @@ export default function MainContent() {
                                         </div>
                                     </div>
                                     <div onClick={onHandleLocation} style={{ cursor: 'pointer' }}>
-                                        <input
-                                            onChange={(e) => {
-                                                setMedia(e.target.files[0])
-                                            }}
-                                            ref={hiddenFileInput} type="file" className="d-none" />
+                                        <input ref={hiddenLocationInput} className="d-none" />
                                         <div className="d-flex " >
                                             <h1 class="text-hide"
                                                 style={{
