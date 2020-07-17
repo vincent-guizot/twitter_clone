@@ -33,6 +33,9 @@ export default function MainContent() {
             media
         }))
         setTweet("")
+        setMedia(null)
+        setLocation(null)
+        setUploadPreview("")
     }
 
     const onHandleUpload = () => {
@@ -64,12 +67,12 @@ export default function MainContent() {
                                     <div className="input-group-prepend">
                                         <span className="input-group-text mr-3" id="addon-wrapping">#</span>
                                     </div>
-                                    <input onChange={(e) => setTweet(e.target.value)} type="text" className="form-control" placeholder="Share your thought.." />
+                                    <input value={tweet} onChange={(e) => setTweet(e.target.value)} type="text" className="form-control" placeholder="Share your thought.." />
                                     <div className="input-group-append">
                                         <button onClick={onHandlePost} className="btn btn-outline-info" type="button" id="button-addon2">Post </button>
                                     </div>
                                 </div>
-                                    {uploadPreview && <img scr={uploadPreview}style={{ height: 150, width: 200 }} />}   
+                                    {uploadPreview && (<img src={uploadPreview} style={{ "width": "200px", "height": "150px" }} />)}
                                 {location && <ViewLocation location={location} />}
                                 <div className="d-flex justify-space-arround" style={{ backgroundColor: "#e3e3e3", borderRadius: 10, cursor: 'pointer' }}>
                                     <div onClick={onHandleUpload} style={{ cursor: 'pointer' }}>
