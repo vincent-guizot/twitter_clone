@@ -72,9 +72,10 @@ export default function MainContent() {
                                         <button onClick={onHandlePost} className="btn btn-outline-info" type="button" id="button-addon2">Post </button>
                                     </div>
                                 </div>
-                                    {uploadPreview && (<img src={uploadPreview} style={{ "width": "200px", "height": "150px" }} />)}
-                                {location && <ViewLocation location={location} />}
-                                <div className="d-flex justify-space-arround" style={{ backgroundColor: "#e3e3e3", borderRadius: 10, cursor: 'pointer' }}>
+                                
+                                <div className="d-flex align-items-center mb-3" >
+                                    
+                                    <p className="mr-3">Attach : </p>
                                     <div onClick={onHandleUpload} style={{ cursor: 'pointer' }}>
                                         <input
                                             onChange={(e) => {
@@ -82,31 +83,47 @@ export default function MainContent() {
                                                 setUploadPreview(URL.createObjectURL(e.target.files[0]))
                                             }}
                                             ref={hiddenFileInput} type="file" className="d-none" />
-                                        <div className="d-flex " >
-                                            <h1 class="text-hide"
+                                        <div className="upload-media text-center mr-3 d-flex" >
+                                            {/* <h1 class="text-hide"
                                                 style={{
                                                     backgroundImage: 'url("../assets/icon/icn_upload.png")',
                                                     width: 50, height: 50,
                                                     backgroundSize: "cover",
 
-                                                }} />
-                                            <h6>Upload Foto / Video</h6>
+                                                }} /> */}
+                                                <i  style={{color:"#17a2b8", fontSize:"1.5rem"}} className="fa fa-image mr-3"></i>
+                                            <p>Upload Photo / Video</p>
                                         </div>
                                     </div>
                                     <div onClick={onHandleLocation} style={{ cursor: 'pointer' }}>
                                         <input ref={hiddenLocationInput} className="d-none" />
-                                        <div className="d-flex " >
-                                            <h1 class="text-hide"
+                                        <div className="upload-media text-center mr-3 d-flex" >
+                                            {/* <h1 class="text-hide"
                                                 style={{
                                                     backgroundImage: 'url("../assets/icon/icn_map.png")',
                                                     width: 50, height: 50,
                                                     backgroundSize: "cover",
 
-                                                }} />
-                                            <h6>Upload Location</h6>
+                                                }} /> */}
+                                                <i style={{color:"#17a2b8", fontSize:"1.5rem"}}  class="fa fa-map-marker mr-3"></i>
+                                            <p>Upload Location</p>
                                         </div>
                                     </div>
                                 </div>
+                                {(uploadPreview || location) && (
+                                <div className="w-100 mb-1">
+                                    <div className="row">
+                                        <div className="col">
+                                            
+                                    {uploadPreview && (<img src={uploadPreview} className="w-100" style={{height:"300px"}}/>)}
+                                        </div>
+                                        <div className="col">
+                                            
+                                    {location && <ViewLocation location={location} />}
+                                        </div>
+                                    </div>
+                                </div>
+                                )}
                             </div>
                             <div className="tweets-list p-3">
                                 {tweets.map(el => {
@@ -120,8 +137,29 @@ export default function MainContent() {
                         {/* <div className="col-auto"></div> */}
                         <div className="col p-0">
                             <div className="follow-list p-4 mb-3">
-                                <h6>Follow</h6>
-                                {JSON.stringify(users)}
+                                <h5>Follow New Users</h5>
+                                <hr/>
+                                <div className="follow-scroll">
+                                {users.map(user=>{
+                                    return (
+                                        <div className="row ">
+                                            <div className="col-2">
+                                                <img className="rounded" style={{ "width": "35px", "height": "35px" }} src={user.image_url} />
+                                            </div>
+                                            <div className="col-10">
+                                                
+                                            <div className="float-left">
+                                                <p className="user-name">{user.username}</p>
+                                    <p className="text-muted">{user.email}</p>
+                                            </div>
+                                            <div className="float-right">
+                                                <button className="btn btn-sm btn-info">FOLLOW</button>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                                </div>
                             </div>
                             <div className="tag-list p-4">
                                 <h6>Tags</h6>

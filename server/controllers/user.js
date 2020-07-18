@@ -64,9 +64,10 @@ class UserController {
 
     static loginGoogle(req, res, next) {
         let CLIENT_ID = process.env.CLIENT_ID
-        let token = req.body.idToken
+        let token = req.body.tokenId
         let userName = null
         let userEmail = null
+        let userPicture = null
         const client = new OAuth2Client(CLIENT_ID);
         // console.log('client: ', client);
 
@@ -76,9 +77,10 @@ class UserController {
         })
             .then((ticket) => {
                 const payload = ticket.getPayload();
-                // console.log('payload: ', payload);
-                userEmail = payload.email;
+                console.log('payload: ', payload);
+                userEmail = payload.email
                 userName = payload.name
+                userPicture = payload.picture
                 console.log('userEmail: ', userEmail);
                 return User.findOne({
                     where: {
@@ -87,10 +89,10 @@ class UserController {
                 })
             })
             .then((data) => {
-                // console.log('data: ', data);
+                console.log('data: ', data);
                 if (data) {
                     console.log('data: ', data);
-                    let access_token = Jwt.generateToken(data)
+                    let access_token = tokenGenerator(data)
                     res.status(200).json({
                         access_token,
                         username: data.username
@@ -100,19 +102,22 @@ class UserController {
                     let newUser = {
                         username: userName,
                         email: userEmail,
-                        password: process.env.PASSWORD_GOOGLE
+                        image_url : userPicture,
+                        password: "123"
                     }
-                    // console.log('newUser: ', newUser);
+                    console.log('newUser: ', newUser);
                     return User.create(newUser)
                 }
             })
-            .then((data) => {
-                let access_token = Jwt.generateToken(data)
+            .then((user) => {
+                let access_token = tokenGenerator(user)
                 res.status(200).json({
                     access_token,
-                    username: data.username
+                    UserId: user.id, 
+                    avatar: user.image_url
+
                 })
-                return
+                // return
             }).catch((err) => {
                 next({ name: 'ERROR_SERVER' })
             });
@@ -125,7 +130,7 @@ class UserController {
             }
         })
             .then((result) => {
-                console.log('result: ', result);
+                // console.log('result: ', result);
                 res.status(200).json(result)
             }).catch((err) => {
                 next({ name: 'ERROR_SERVER' })
