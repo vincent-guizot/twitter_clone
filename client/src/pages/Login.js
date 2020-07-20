@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { login, register } from '../store/actions/userAction'
+import { login, register, loginGoogle } from '../store/actions/userAction'
 import { GoogleLogin } from 'react-google-login'
 import { Link, Redirect, useHistory } from 'react-router-dom'
 
@@ -34,7 +34,8 @@ function Login() {
     }
 
     const responseGoogle = (response) => {
-        console.log(response);
+        console.log(response.tokenId);
+        dispatch(loginGoogle(response.tokenId))
     }
 
     if (localStorage.getItem("access_token")) return <Redirect to="/" />

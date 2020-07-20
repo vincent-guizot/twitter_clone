@@ -169,3 +169,23 @@ export const addComment = (comment) => {
             });
     }
 }
+
+export const deleteComment = (id) => {
+    return (dispatch) => {
+        axios({
+            method: 'DELETE',
+            url: URL + '/comment/' + id,
+            headers: {
+                access_token: localStorage.getItem('access_token')
+            },
+        })
+        .then((result) => {
+            dispatch({
+                type: 'DELETE_COMMENT',
+                payload: result.data
+            })
+        }).catch((err) => {
+            console.log(err)
+        });
+    }
+}

@@ -16,7 +16,7 @@ const options = {
 };
 
 const mapContainerStyle = {
-    width: '400px',
+    width: '100%',
     height: '300px',
 };
 export default function ViewLocation(props) {
@@ -32,8 +32,8 @@ export default function ViewLocation(props) {
 
     return (
         <div>
-            {JSON.stringify(location)}
-            <img src={icnLocation} style={{width: '20px', height: '20px'}} />
+            {/* {JSON.stringify(location)} */}
+            {/* <img src={icnLocation} style={{width: '20px', height: '20px'}} /> */}
             <GoogleMap
                 mapContainerStyle={mapContainerStyle}
                 zoom={13}
