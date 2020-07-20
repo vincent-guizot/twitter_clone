@@ -39,7 +39,7 @@ export default function MainContent() {
 
     const onHandleLocation = () => {
         navigator.geolocation.getCurrentPosition(getLatLng);
-        console.log("ini location lang lat :",location)
+        console.log("ini location lang lat :", location)
     }
 
     const getLatLng = (position) => {
@@ -54,7 +54,6 @@ export default function MainContent() {
         <>
             <div className="maincontent-first container-fluid">
                 <div className="container p-0">
-                    {/* {media && <Image scr={media.} />} */}
                     <div className="row mt-3">
                         <div className="maincontent-component col-8 bg-white p-0">
                             <div className="search-bar p-3">
@@ -67,6 +66,7 @@ export default function MainContent() {
                                         <button onClick={onHandlePost} className="btn btn-outline-info" type="button" id="button-addon2">Post </button>
                                     </div>
                                 </div>
+                                {/* {media && <Image scr={media.} />} */}
                                 {location && <ViewLocation location={location} />}
                                 <div className="d-flex justify-space-arround" style={{ backgroundColor: "#e3e3e3", borderRadius: 10, cursor: 'pointer' }}>
                                     <div onClick={onHandleUpload} style={{ cursor: 'pointer' }}>
