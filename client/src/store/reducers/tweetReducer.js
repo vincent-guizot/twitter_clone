@@ -45,14 +45,26 @@ export const tweetReducer = (state = initialStore, { type, payload }) => {
         case 'ADD_COMMENT':
             let newTweetsComment = state.tweets.map(el => {
                 if (el.id === payload.TweetId) {
-                    console.log("payload", payload)
-                    el.Comments = [...el.Comments,payload]
+                    el.Comments = [...el.Comments, payload]
                 }
                 return el
             })
             return {
                 ...state,
                 tweets: newTweetsComment
+            }
+        case 'DELETE_COMMENT':
+            let updateComments = state.tweets.map(el => {
+                if (el.id === payload.TweetId) {
+                    console.log(el.Comments)
+                    el.Comments.filter(e => e.id !== payload.id)
+                    console.log("comments setelah di delete",el.Comments)
+                }
+                return el
+            })
+            return {
+                ...state,
+                tweets: updateComments
             }
         default:
             return state;
