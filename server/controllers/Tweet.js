@@ -44,18 +44,18 @@ class TweetController {
             media: form.media,
             UserId: userId
         })
-        .then(tweet=>{
-            return Tweet.findOne({
-                where: {
-                    id: tweet.id
-                },
-                include: [
-                    { model: User, attributes: { exclude: ['password', 'createdAt', 'updatedAt'] } },
-                    { model: Like, attributes: ['id', 'TweetId', 'UserId'] },
-                    { model: Comment, attributes: ['id', 'TweetId', 'UserId', 'reply'] },
-                ],
+            .then(tweet => {
+                return Tweet.findOne({
+                    where: {
+                        id: tweet.id
+                    },
+                    include: [
+                        { model: User, attributes: { exclude: ['password', 'createdAt', 'updatedAt'] } },
+                        { model: Like, attributes: ['id', 'TweetId', 'UserId'] },
+                        { model: Comment, attributes: ['id', 'TweetId', 'UserId', 'reply'] },
+                    ],
+                })
             })
-        })
             .then(tweet => {
                 res.status(201).json(tweet)
             })
@@ -109,28 +109,6 @@ class TweetController {
                 id: tweetId
             }
         })
-            // .then(Tweet => {
-            //     if (!Tweet) {
-            //         next({
-            //             name: "Not_Found"
-            //         })
-            //     } else {
-            //         return Like.destroy({
-            //             where : {
-            //                 TweetId : tweetId,
-            //                 UserId
-            //             }
-            //         })
-            //     }
-            // })
-            // .then(tweet=>{
-            //     return Comment.destroy({
-            //         where : {
-            //             TweetId : tweetId,
-            //             UserId
-            //         }
-            //     })
-            // })
             .then(tweet => {
                 res.status(200).json(tweet)
 
@@ -194,16 +172,16 @@ class TweetController {
             reply,
             UserId
         })
-        .then(result => {
-            return Comment.findOne({
-                where : {
-                    id : result.id
-                },
-                include : [
-                    { model: User, attributes: { exclude: ['password', 'createdAt', 'updatedAt'] } },
-                ]
+            .then(result => {
+                return Comment.findOne({
+                    where: {
+                        id: result.id
+                    },
+                    include: [
+                        { model: User, attributes: { exclude: ['password', 'createdAt', 'updatedAt'] } },
+                    ]
+                })
             })
-        })
             .then(result => {
                 res.status(200).json(result)
             })
@@ -241,6 +219,8 @@ class TweetController {
     static deleteComment(req, res, next) {
         let id = req.params.id
         let UserId = req.userData.id
+        console.log("request", id, UserId)
+        let destroyComment = null
 
         Comment.findOne({
             where: {
@@ -249,6 +229,7 @@ class TweetController {
             }
         })
             .then(comment => {
+                destroyComment = comment
                 return Comment.destroy({
                     where: {
                         id: comment.id
@@ -256,7 +237,7 @@ class TweetController {
                 })
             })
             .then(comment => {
-                res.status(200).json(comment)
+                res.status(200).json(destroyComment)
             })
             .catch(err => {
                 next(err)
